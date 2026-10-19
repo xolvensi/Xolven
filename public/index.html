@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xolven.Si — Client dashboard</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <nav class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">X</div>
+      <div class="brand-name">Xolven.Si</div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#" class="nav-link active">Clients</a>
+      <a href="#" class="nav-link">Team</a>
+      <a href="#" class="nav-link">Handover summary</a>
+      <a href="#" class="nav-link">Settings</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="client-list-wrap">
+      <div class="section-label">Clients</div>
+      <div id="client-list" class="client-list"></div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="profile-header">
+      <div class="profile-id">
+        <div id="profile-avatar" class="avatar avatar-lg"></div>
+        <div>
+          <h1 id="profile-name" class="profile-name"></h1>
+          <div id="profile-meta" class="profile-meta"></div>
+        </div>
+      </div>
+      <button class="btn-primary">Generate handover summary</button>
+    </div>
+
+    <div class="card summary-card">
+      <div class="card-label accent">AI summary</div>
+      <p id="profile-summary" class="summary-text"></p>
+    </div>
+
+    <div class="card">
+      <div class="card-header-row">
+        <div class="card-label">Client profile</div>
+        <div class="hint">Every line links back to the message it came from</div>
+      </div>
+      <div id="profile-facts" class="facts-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Conversation history</div>
+      <div id="profile-history" class="history-list"></div>
+    </div>
+  </main>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
