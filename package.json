@@ -1,0 +1,13 @@
+{
+  "name": "xolven-si",
+  "version": "0.1.0",
+  "description": "Xolven.Si - AI client memory for WhatsApp Business",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
