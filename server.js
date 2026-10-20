@@ -1,29 +1,32 @@
 const express = require('express');
-const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 const path = require('path');
 const store = require('./lib/store');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const JWT_SECRET = process.env.SESSION_SECRET || 'xolven-dev-secret-change-me';
+const COOKIE_NAME = 'xolven_token';
+const TOKEN_MAX_AGE = 1000 * 60 * 60 * 8;
 
 app.use(express.json());
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'xolven-dev-secret-change-me',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 1000 * 60 * 60 * 8,
-  },
-}));
+app.use(cookieParser());
 
 function requireAuth(req, res, next) {
-  if (!req.session.userId) {
+  const token = req.cookies[COOKIE_NAME];
+  if (!token) {
     if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'Not authenticated' });
     return res.redirect('/login.html');
   }
-  next();
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.userId = payload.sub;
+    next();
+  } catch (err) {
+    if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'Not authenticated' });
+    return res.redirect('/login.html');
+  }
 }
 
 app.post('/api/login', (req, res) => {
@@ -32,21 +35,29 @@ app.post('/api/login', (req, res) => {
   if (!user || !store.verifyPassword(user, password || '')) {
     return res.status(401).json({ error: 'Invalid email or password' });
   }
-  req.session.userId = user.id;
+  const token = jwt.sign({ sub: user.id }, JWT_SECRET, { expiresIn: '8h' });
+  res.cookie(COOKIE_NAME, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: TOKEN_MAX_AGE,
+  });
   res.json({ user: store.publicUser(user) });
 });
 
 app.post('/api/logout', (req, res) => {
-  req.session.destroy(() => res.json({ ok: true }));
+  res.clearCookie(COOKIE_NAME);
+  res.json({ ok: true });
 });
 
 app.get('/api/me', requireAuth, (req, res) => {
-  const user = store.findUserById(req.session.userId);
+  const user = store.findUserById(req.userId);
+  if (!user) return res.status(401).json({ error: 'Not authenticated' });
   res.json({ user: store.publicUser(user) });
 });
 
 app.get('/api/clients', requireAuth, (req, res) => {
-  const user = store.findUserById(req.session.userId);
+  const user = store.findUserById(req.userId);
   const clients = store.getClientsForUser(user).map((c) => ({
     id: c.id,
     name: c.name,
@@ -59,7 +70,7 @@ app.get('/api/clients', requireAuth, (req, res) => {
 });
 
 app.get('/api/clients/:id', requireAuth, (req, res) => {
-  const user = store.findUserById(req.session.userId);
+  const user = store.findUserById(req.userId);
   const client = store.getClientForUser(user, req.params.id);
   if (!client) return res.status(404).json({ error: 'Client not found' });
   res.json({ client: { ...client, ownerName: store.ownerName(client.ownerId) } });
