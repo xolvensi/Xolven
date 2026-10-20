@@ -4,9 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Xolven.Si — Client dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<div id="intro" class="intro">
+  <svg class="intro-mark" width="140" height="140" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path id="stroke-a" d="M48 46 L152 154" stroke="#1DB954" stroke-width="14" stroke-linecap="round"/>
+    <path id="stroke-b" d="M152 46 L48 154" stroke="#1DB954" stroke-width="14" stroke-linecap="round"/>
+    <path id="stroke-c" d="M30 22 L170 178" stroke="#1DB954" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <div class="intro-word">Xolven<span class="intro-dot">.</span>Si</div>
+</div>
+
 <div class="app">
 
   <nav class="sidebar">
@@ -16,6 +29,7 @@
     </div>
 
     <div class="nav-links">
+      <a href="#" class="nav-link">Dashboard</a>
       <a href="#" class="nav-link active">Clients</a>
       <a href="#" class="nav-link">Team</a>
       <a href="#" class="nav-link">Handover summary</a>

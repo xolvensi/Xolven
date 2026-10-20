@@ -1,3 +1,10 @@
+const introEl = document.getElementById('intro');
+if (introEl) {
+  introEl.addEventListener('click', () => {
+    introEl.style.animation = 'intro-out 0.3s ease forwards';
+  });
+}
+
 const TAG_CLASS = {
   SOLD: 'tag-sold',
   AGREED: 'tag-agreed',
