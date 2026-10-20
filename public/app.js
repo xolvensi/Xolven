@@ -71,8 +71,16 @@ function renderClientList() {
 async function selectClient(id) {
   selectedId = id;
   renderClientList();
+
+  const main = document.querySelector('.main');
+  main.classList.add('content-fade-out');
+
   const { client } = await api('/api/clients/' + id);
-  renderProfile(client);
+
+  setTimeout(() => {
+    renderProfile(client);
+    main.classList.remove('content-fade-out');
+  }, 140);
 }
 
 function renderProfile(c) {
