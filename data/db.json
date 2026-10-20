@@ -1,0 +1,91 @@
+{
+  "users": [
+    {
+      "id": "jhonatan",
+      "name": "Jhonatan Lopez",
+      "email": "jhonatan@xolven.si",
+      "passwordHash": "$2b$10$657/x.P86haL8orPmO3EcuGYQEfji.a0aAZE5j5RpPCUJ6ppte2vm",
+      "role": "admin"
+    },
+    {
+      "id": "carlos",
+      "name": "Carlos R.",
+      "email": "carlos@mentenueva.com",
+      "passwordHash": "$2b$10$657/x.P86haL8orPmO3EcuGYQEfji.a0aAZE5j5RpPCUJ6ppte2vm",
+      "role": "member"
+    },
+    {
+      "id": "ana",
+      "name": "Ana P.",
+      "email": "ana@mentenueva.com",
+      "passwordHash": "$2b$10$657/x.P86haL8orPmO3EcuGYQEfji.a0aAZE5j5RpPCUJ6ppte2vm",
+      "role": "member"
+    }
+  ],
+  "clients": [
+    {
+      "id": "maria",
+      "name": "Maria Gonzalez",
+      "initials": "MG",
+      "avatarBg": "#1DB954",
+      "phone": "+1 305 555 0148",
+      "ownerId": "carlos",
+      "lastMessage": "Can I get an update on the invoice?",
+      "hasPending": true,
+      "summary": "Long-time client since 2024, runs a small retail brand. Generally responsive and pays on time, but the latest invoice has been pending for 12 days. Prefers WhatsApp over email for all communication.",
+      "facts": [
+        { "label": "SOLD", "text": "Logo redesign + monthly maintenance plan." },
+        { "label": "AGREED", "text": "$200/mo payment plan starting March." },
+        { "label": "PENDING", "text": "March invoice unpaid, final product photos not received." },
+        { "label": "DEADLINE", "text": "Logo revisions due this Friday." }
+      ],
+      "history": [
+        { "time": "9:14 AM", "from": "Maria", "text": "Hey, just checking on the invoice status, can you confirm what I owe this month?" },
+        { "time": "9:20 AM", "from": "Carlos", "text": "Sure, sending it over today along with the updated design files." },
+        { "time": "2:03 PM", "from": "Maria", "text": "Perfect, thank you!" }
+      ]
+    },
+    {
+      "id": "diego",
+      "name": "Diego Fernandez",
+      "initials": "DF",
+      "avatarBg": "#378ADD",
+      "phone": "+1 786 555 0391",
+      "ownerId": "ana",
+      "lastMessage": "Voice note (0:42)",
+      "hasPending": false,
+      "summary": "New client onboarded last month for a social media package. Communicates mostly through voice notes, informal tone. No open issues currently, relationship is healthy.",
+      "facts": [
+        { "label": "SOLD", "text": "Social media management package." },
+        { "label": "AGREED", "text": "Growth plan, $119/mo, content calendar every Friday." },
+        { "label": "PENDING", "text": "Nothing open right now." },
+        { "label": "DEADLINE", "text": "Next content batch due this Friday." }
+      ],
+      "history": [
+        { "time": "Mon", "from": "Diego", "text": "Voice note transcript: loved the last post, keep that style going." },
+        { "time": "Mon", "from": "Ana", "text": "Glad to hear it! Next batch goes out Friday as usual." }
+      ]
+    },
+    {
+      "id": "laura",
+      "name": "Laura Mendez",
+      "initials": "LM",
+      "avatarBg": "#D85A30",
+      "phone": "+1 954 555 0217",
+      "ownerId": "carlos",
+      "lastMessage": "Necesito el contrato actualizado",
+      "hasPending": true,
+      "summary": "Mixed Spanish/English communicator, runs a wholesale food business. Has an open request for an updated contract that has not been addressed in over a week.",
+      "facts": [
+        { "label": "SOLD", "text": "Yearly Agency tier contract, renewed in January." },
+        { "label": "AGREED", "text": "Second brand can be added to the same account." },
+        { "label": "PENDING", "text": "Updated contract copy requested, no reply sent yet." },
+        { "label": "DEADLINE", "text": "Contract copy promised for tomorrow." }
+      ],
+      "history": [
+        { "time": "Fri", "from": "Laura", "text": "Necesito el contrato actualizado para mi contador, me lo pueden mandar?" },
+        { "time": "Fri", "from": "Carlos", "text": "Claro, te lo envio manana sin falta." }
+      ]
+    }
+  ]
+}

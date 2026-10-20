@@ -1,10 +1,3 @@
-const introEl = document.getElementById('intro');
-if (introEl) {
-  introEl.addEventListener('click', () => {
-    introEl.style.animation = 'intro-out 0.3s ease forwards';
-  });
-}
-
 const TAG_CLASS = {
   SOLD: 'tag-sold',
   AGREED: 'tag-agreed',
@@ -12,82 +5,36 @@ const TAG_CLASS = {
   DEADLINE: 'tag-deadline',
 };
 
-const CLIENTS = {
-  maria: {
-    name: 'Maria Gonzalez',
-    initials: 'MG',
-    avatarBg: '#2EB84A',
-    phone: '+1 305 555 0148',
-    owner: 'Carlos R.',
-    lastMessage: 'Can I get an update on the invoice?',
-    hasPending: true,
-    summary: 'Long-time client since 2024, runs a small retail brand. Generally responsive and pays on time, but the latest invoice has been pending for 12 days. Prefers WhatsApp over email for all communication.',
-    facts: [
-      { label: 'SOLD', text: 'Logo redesign + monthly maintenance plan.' },
-      { label: 'AGREED', text: '$200/mo payment plan starting March.' },
-      { label: 'PENDING', text: 'March invoice unpaid, final product photos not received.' },
-      { label: 'DEADLINE', text: 'Logo revisions due this Friday.' },
-    ],
-    history: [
-      { time: '9:14 AM', from: 'Maria', text: 'Hey, just checking on the invoice status, can you confirm what I owe this month?' },
-      { time: '9:20 AM', from: 'Carlos', text: 'Sure, sending it over today along with the updated design files.' },
-      { time: '2:03 PM', from: 'Maria', text: 'Perfect, thank you!' },
-    ],
-  },
-  diego: {
-    name: 'Diego Fernandez',
-    initials: 'DF',
-    avatarBg: '#378ADD',
-    phone: '+1 786 555 0391',
-    owner: 'Ana P.',
-    lastMessage: 'Voice note (0:42)',
-    hasPending: false,
-    summary: 'New client onboarded last month for a social media package. Communicates mostly through voice notes, informal tone. No open issues currently, relationship is healthy.',
-    facts: [
-      { label: 'SOLD', text: 'Social media management package.' },
-      { label: 'AGREED', text: 'Growth plan, $119/mo, content calendar every Friday.' },
-      { label: 'PENDING', text: 'Nothing open right now.' },
-      { label: 'DEADLINE', text: 'Next content batch due this Friday.' },
-    ],
-    history: [
-      { time: 'Mon', from: 'Diego', text: 'Voice note transcript: loved the last post, keep that style going.' },
-      { time: 'Mon', from: 'Ana', text: 'Glad to hear it! Next batch goes out Friday as usual.' },
-    ],
-  },
-  laura: {
-    name: 'Laura Mendez',
-    initials: 'LM',
-    avatarBg: '#D85A30',
-    phone: '+1 954 555 0217',
-    owner: 'Carlos R.',
-    lastMessage: 'Necesito el contrato actualizado',
-    hasPending: true,
-    summary: 'Mixed Spanish/English communicator, runs a wholesale food business. Has an open request for an updated contract that has not been addressed in over a week.',
-    facts: [
-      { label: 'SOLD', text: 'Yearly Agency tier contract, renewed in January.' },
-      { label: 'AGREED', text: 'Second brand can be added to the same account.' },
-      { label: 'PENDING', text: 'Updated contract copy requested, no reply sent yet.' },
-      { label: 'DEADLINE', text: 'Contract copy promised for tomorrow.' },
-    ],
-    history: [
-      { time: 'Fri', from: 'Laura', text: 'Necesito el contrato actualizado para mi contador, me lo pueden mandar?' },
-      { time: 'Fri', from: 'Carlos', text: 'Claro, te lo envio manana sin falta.' },
-    ],
-  },
-};
+const introEl = document.getElementById('intro');
+if (introEl) {
+  introEl.addEventListener('click', () => {
+    introEl.style.animation = 'intro-out 0.3s ease forwards';
+  });
+}
 
-const CLIENT_ORDER = ['maria', 'diego', 'laura'];
+let clients = [];
+let selectedId = null;
 
-let selectedId = 'maria';
+async function api(path, options) {
+  const res = await fetch(path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options,
+  });
+  if (res.status === 401) {
+    window.location.href = '/login.html';
+    throw new Error('Not authenticated');
+  }
+  if (!res.ok) throw new Error('Request failed: ' + path);
+  return res.json();
+}
 
 function renderClientList() {
   const list = document.getElementById('client-list');
   list.innerHTML = '';
 
-  CLIENT_ORDER.forEach((id) => {
-    const c = CLIENTS[id];
+  clients.forEach((c) => {
     const row = document.createElement('button');
-    row.className = 'client-row' + (id === selectedId ? ' selected' : '');
+    row.className = 'client-row' + (c.id === selectedId ? ' selected' : '');
     row.type = 'button';
     row.setAttribute('aria-label', 'Open ' + c.name);
 
@@ -115,25 +62,26 @@ function renderClientList() {
       row.append(dot);
     }
 
-    row.addEventListener('click', () => {
-      selectedId = id;
-      renderClientList();
-      renderProfile();
-    });
+    row.addEventListener('click', () => selectClient(c.id));
 
     list.append(row);
   });
 }
 
-function renderProfile() {
-  const c = CLIENTS[selectedId];
+async function selectClient(id) {
+  selectedId = id;
+  renderClientList();
+  const { client } = await api('/api/clients/' + id);
+  renderProfile(client);
+}
 
+function renderProfile(c) {
   const avatar = document.getElementById('profile-avatar');
   avatar.style.background = c.avatarBg;
   avatar.textContent = c.initials;
 
   document.getElementById('profile-name').textContent = c.name;
-  document.getElementById('profile-meta').textContent = c.phone + ' · owned by ' + c.owner;
+  document.getElementById('profile-meta').textContent = c.phone + ' · owned by ' + c.ownerName;
   document.getElementById('profile-summary').textContent = c.summary;
 
   const facts = document.getElementById('profile-facts');
@@ -179,5 +127,22 @@ function renderProfile() {
   });
 }
 
-renderClientList();
-renderProfile();
+async function init() {
+  const { user } = await api('/api/me');
+  document.getElementById('user-name').textContent = user.name;
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await api('/api/logout', { method: 'POST' });
+    window.location.href = '/login.html';
+  });
+
+  const data = await api('/api/clients');
+  clients = data.clients;
+  renderClientList();
+
+  if (clients.length > 0) {
+    selectClient(clients[0].id);
+  }
+}
+
+init().catch((err) => console.error(err));

@@ -82,6 +82,54 @@ a:hover { color: #27d363; }
   .intro-word { opacity: 1; transform: none; animation: none; }
 }
 
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--navy-3);
+  border: 1px solid var(--gray-line);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.login-mark { width: 48px; height: 48px; border-radius: 12px; margin-bottom: 16px; }
+.login-title { font-family: 'Montserrat', 'Inter', sans-serif; font-size: 20px; font-weight: 800; margin: 0 0 4px; color: var(--white); }
+.login-sub { font-size: 13px; color: var(--gray-text); margin: 0 0 20px; }
+
+.field-label { font-size: 12px; font-weight: 600; color: var(--gray-text); margin: 12px 0 6px; }
+
+.login-card input {
+  background: var(--navy-2);
+  border: 1px solid var(--gray-line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--white);
+  font-family: inherit;
+}
+.login-card input:focus { outline: none; border-color: var(--green); }
+
+.login-error {
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: #f0906a;
+  background: rgba(216,90,48,0.12);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.login-submit { margin-top: 20px; width: 100%; }
+
 .sidebar {
   width: 280px;
   flex: 0 0 280px;
@@ -120,6 +168,16 @@ a:hover { color: #27d363; }
 }
 
 .client-list { display: flex; flex-direction: column; gap: 2px; }
+
+.sidebar-footer { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+.user-row { display: flex; align-items: center; justify-content: space-between; padding: 0 4px; }
+.user-name { font-size: 13px; font-weight: 600; color: var(--white); }
+.logout-btn {
+  background: transparent; border: 1px solid var(--gray-line); color: var(--gray-text);
+  font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 6px; cursor: pointer;
+  font-family: inherit;
+}
+.logout-btn:hover { color: var(--white); border-color: var(--white); }
 
 .client-row {
   display: flex; align-items: center; gap: 10px;
