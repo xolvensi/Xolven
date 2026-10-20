@@ -83,14 +83,54 @@ a:hover { color: #27d363; }
 }
 
 .login-screen {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  overflow: hidden;
 }
 
+.login-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(29,185,84,0.16) 0%, rgba(29,185,84,0) 70%);
+  pointer-events: none;
+  animation: glow-pulse 5s ease-in-out infinite;
+}
+
+.login-particles { position: absolute; inset: 0; pointer-events: none; }
+.login-particles span {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0;
+  animation: particle-drift 6s ease-in-out infinite;
+}
+.login-particles span:nth-child(1) { top: 15%; left: 12%; animation-delay: 0.1s; }
+.login-particles span:nth-child(2) { top: 25%; left: 80%; animation-delay: 1.1s; }
+.login-particles span:nth-child(3) { top: 70%; left: 18%; animation-delay: 2.1s; }
+.login-particles span:nth-child(4) { top: 82%; left: 75%; animation-delay: 0.6s; }
+.login-particles span:nth-child(5) { top: 10%; left: 55%; animation-delay: 1.6s; }
+.login-particles span:nth-child(6) { top: 45%; left: 8%; animation-delay: 2.6s; }
+.login-particles span:nth-child(7) { top: 60%; left: 90%; animation-delay: 3.1s; }
+.login-particles span:nth-child(8) { top: 88%; left: 40%; animation-delay: 0.9s; }
+.login-particles span:nth-child(9) { top: 5%; left: 30%; animation-delay: 3.6s; }
+.login-particles span:nth-child(10) { top: 35%; left: 65%; animation-delay: 1.9s; }
+.login-particles span:nth-child(11) { top: 55%; left: 48%; animation-delay: 4.1s; }
+.login-particles span:nth-child(12) { top: 20%; left: 92%; animation-delay: 2.9s; }
+.login-particles span:nth-child(13) { top: 78%; left: 10%; animation-delay: 4.6s; }
+.login-particles span:nth-child(14) { top: 92%; left: 60%; animation-delay: 1.4s; }
+.login-particles span:nth-child(15) { top: 40%; left: 25%; animation-delay: 5.1s; }
+
 .login-card {
+  position: relative;
   width: 100%;
   max-width: 360px;
   background: var(--navy-3);
@@ -100,11 +140,58 @@ a:hover { color: #27d363; }
   display: flex;
   flex-direction: column;
   gap: 4px;
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  animation: card-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.15s;
 }
 
-.login-mark { width: 48px; height: 48px; border-radius: 12px; margin-bottom: 16px; }
-.login-title { font-family: 'Montserrat', 'Inter', sans-serif; font-size: 20px; font-weight: 800; margin: 0 0 4px; color: var(--white); }
-.login-sub { font-size: 13px; color: var(--gray-text); margin: 0 0 20px; }
+.login-mark {
+  width: 48px; height: 48px; border-radius: 12px; margin-bottom: 16px;
+  animation: logo-glow 2.6s ease-in-out infinite;
+}
+.login-title {
+  font-family: 'Montserrat', 'Inter', sans-serif; font-size: 20px; font-weight: 800; margin: 0 0 4px; color: var(--white);
+  opacity: 0; animation: field-in 0.5s ease forwards; animation-delay: 0.35s;
+}
+.login-sub {
+  font-size: 13px; color: var(--gray-text); margin: 0 0 20px;
+  opacity: 0; animation: field-in 0.5s ease forwards; animation-delay: 0.45s;
+}
+
+.field-label, .login-card input { opacity: 0; animation: field-in 0.5s ease forwards; }
+.field-label[for="email"] { animation-delay: 0.55s; }
+#email { animation-delay: 0.6s; }
+.field-label[for="password"] { animation-delay: 0.65s; }
+#password { animation-delay: 0.7s; }
+.login-submit { opacity: 0; animation: field-in 0.5s ease forwards; animation-delay: 0.8s; }
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+}
+@keyframes particle-drift {
+  0% { opacity: 0; transform: translateY(0); }
+  50% { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-18px); }
+}
+@keyframes card-in {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes logo-glow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(29,185,84,0.25)); }
+  50% { filter: drop-shadow(0 0 14px rgba(29,185,84,0.55)); }
+}
+@keyframes field-in {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-glow, .login-particles span, .login-mark { animation: none; }
+  .login-card, .login-title, .login-sub, .field-label, .login-card input, .login-submit {
+    animation: none; opacity: 1; transform: none;
+  }
+}
 
 .field-label { font-size: 12px; font-weight: 600; color: var(--gray-text); margin: 12px 0 6px; }
 
