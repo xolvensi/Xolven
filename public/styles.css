@@ -314,6 +314,9 @@ a:hover { color: #27d363; }
   flex-direction: column;
   gap: 24px;
 }
+.view[hidden] {
+  display: none;
+}
 
 .view > * {
   opacity: 0;
