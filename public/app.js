@@ -153,6 +153,122 @@ function renderSettings() {
   document.getElementById('settings-name').textContent = currentUser.name;
   document.getElementById('settings-email').textContent = currentUser.email;
   document.getElementById('settings-role').textContent = currentUser.role === 'admin' ? 'Admin' : 'Team member';
+
+  if (currentUser.role === 'admin') {
+    document.getElementById('team-manage-card').hidden = false;
+    loadUserList();
+  }
+}
+
+async function loadUserList() {
+  const { users } = await api('/api/users');
+  const list = document.getElementById('team-manage-list');
+  list.innerHTML = '';
+
+  users.filter((u) => u.role !== 'admin').forEach((u) => {
+    const row = document.createElement('div');
+    row.className = 'settings-user-item';
+
+    const info = document.createElement('div');
+    info.className = 'settings-user-info';
+    const name = document.createElement('span');
+    name.className = 'settings-user-name';
+    name.textContent = u.name;
+    const email = document.createElement('span');
+    email.className = 'settings-user-email';
+    email.textContent = u.email + ' · ' + u.clientCount + ' client' + (u.clientCount === 1 ? '' : 's');
+    info.append(name, email);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'settings-user-remove';
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', async () => {
+      try {
+        await api('/api/users/' + u.id, { method: 'DELETE' });
+        teamData = null;
+        loadUserList();
+      } catch (err) {
+        alert('Could not remove this team member.');
+      }
+    });
+
+    row.append(info, removeBtn);
+    list.append(row);
+  });
+
+  if (users.filter((u) => u.role !== 'admin').length === 0) {
+    list.innerHTML = '<div class="handover-empty">No team members yet.</div>';
+  }
+}
+
+function initSettingsForms() {
+  document.getElementById('password-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errorBox = document.getElementById('password-error');
+    const successBox = document.getElementById('password-success');
+    errorBox.hidden = true;
+    successBox.hidden = true;
+
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (newPassword !== confirmPassword) {
+      errorBox.textContent = 'New passwords do not match.';
+      errorBox.hidden = false;
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/me/password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errorBox.textContent = data.error || 'Could not update password.';
+        errorBox.hidden = false;
+        return;
+      }
+      successBox.hidden = false;
+      e.target.reset();
+    } catch (err) {
+      errorBox.textContent = 'Network error. Try again.';
+      errorBox.hidden = false;
+    }
+  });
+
+  document.getElementById('add-user-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errorBox = document.getElementById('add-user-error');
+    errorBox.hidden = true;
+
+    const name = document.getElementById('new-user-name').value.trim();
+    const email = document.getElementById('new-user-email').value.trim();
+    const password = document.getElementById('new-user-password').value;
+
+    try {
+      const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errorBox.textContent = data.error || 'Could not add team member.';
+        errorBox.hidden = false;
+        return;
+      }
+      e.target.reset();
+      teamData = null;
+      loadUserList();
+    } catch (err) {
+      errorBox.textContent = 'Network error. Try again.';
+      errorBox.hidden = false;
+    }
+  });
 }
 
 async function loadTeam() {
@@ -322,6 +438,7 @@ async function init() {
   }
 
   initNav();
+  initSettingsForms();
 
   document.getElementById('logout-btn').addEventListener('click', async () => {
     await api('/api/logout', { method: 'POST' });

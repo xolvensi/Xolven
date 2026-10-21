@@ -135,9 +135,31 @@
       </div>
 
       <div class="card">
-        <div class="card-label">Client consent message</div>
-        <p class="hint" style="margin-bottom: 10px;">Sent automatically to new WhatsApp contacts so they can opt out of AI analysis. Coming soon — this will be editable here.</p>
-        <textarea class="settings-textarea" rows="3" disabled>Hi! This business uses Xolven.Si to keep track of our conversation so our team can help you faster. Reply STOP anytime to opt out.</textarea>
+        <div class="card-label">Change password</div>
+        <form id="password-form" class="settings-form">
+          <input type="password" id="current-password" placeholder="Current password" autocomplete="current-password" required>
+          <input type="password" id="new-password" placeholder="New password (min. 6 characters)" autocomplete="new-password" required>
+          <input type="password" id="confirm-password" placeholder="Confirm new password" autocomplete="new-password" required>
+          <div id="password-error" class="login-error" hidden></div>
+          <div id="password-success" class="settings-success" hidden>Password updated.</div>
+          <button type="submit" class="btn-primary">Update password</button>
+        </form>
+      </div>
+
+      <div id="team-manage-card" class="card" hidden>
+        <div class="card-label">Manage team</div>
+        <div id="team-manage-list" class="settings-user-list"></div>
+
+        <div class="divider" style="margin: 16px 0;"></div>
+
+        <div class="card-label" style="margin-bottom: 10px;">Add team member</div>
+        <form id="add-user-form" class="settings-form">
+          <input type="text" id="new-user-name" placeholder="Full name" required>
+          <input type="email" id="new-user-email" placeholder="Email" required>
+          <input type="password" id="new-user-password" placeholder="Temporary password (min. 6 characters)" required>
+          <div id="add-user-error" class="login-error" hidden></div>
+          <button type="submit" class="btn-primary">Add team member</button>
+        </form>
       </div>
     </div>
   </main>

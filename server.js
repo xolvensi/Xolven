@@ -94,6 +94,39 @@ app.get('/api/handover/:employeeId', requireAuth, requireAdmin, (req, res) => {
   res.json({ handover: summary });
 });
 
+app.post('/api/me/password', requireAuth, (req, res) => {
+  const { currentPassword, newPassword } = req.body || {};
+  const user = store.findUserById(req.userId);
+  if (!user || !store.verifyPassword(user, currentPassword || '')) {
+    return res.status(401).json({ error: 'Current password is incorrect' });
+  }
+  if (!newPassword || newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters' });
+  }
+  store.updatePassword(user.id, newPassword);
+  res.json({ ok: true });
+});
+
+app.get('/api/users', requireAuth, requireAdmin, (req, res) => {
+  res.json({ users: store.listUsers() });
+});
+
+app.post('/api/users', requireAuth, requireAdmin, (req, res) => {
+  const { name, email, password } = req.body || {};
+  if (!name || !email || !password || password.length < 6) {
+    return res.status(400).json({ error: 'Name, email and a password of at least 6 characters are required' });
+  }
+  const result = store.createTeamMember({ name, email, password });
+  if (result.error) return res.status(400).json({ error: result.error });
+  res.json(result);
+});
+
+app.delete('/api/users/:id', requireAuth, requireAdmin, (req, res) => {
+  const result = store.deleteTeamMember(req.params.id);
+  if (result.error) return res.status(400).json({ error: result.error });
+  res.json(result);
+});
+
 app.get('/', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
