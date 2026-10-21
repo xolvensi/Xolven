@@ -27,16 +27,16 @@
     </div>
 
     <div class="nav-links">
-      <a href="#" class="nav-link">Dashboard</a>
-      <a href="#" class="nav-link active">Clients</a>
-      <a href="#" class="nav-link">Team</a>
-      <a href="#" class="nav-link">Handover summary</a>
-      <a href="#" class="nav-link">Settings</a>
+      <a href="#" class="nav-link" data-view="clients">Dashboard</a>
+      <a href="#" class="nav-link active" data-view="clients">Clients</a>
+      <a href="#" class="nav-link" data-view="team" id="nav-team" hidden>Team</a>
+      <a href="#" class="nav-link" data-view="handover" id="nav-handover" hidden>Handover summary</a>
+      <a href="#" class="nav-link" data-view="clients">Settings</a>
     </div>
 
     <div class="divider"></div>
 
-    <div class="client-list-wrap">
+    <div id="client-list-wrap" class="client-list-wrap">
       <div class="section-label">Clients</div>
       <div id="client-list" class="client-list"></div>
     </div>
@@ -51,33 +51,63 @@
   </nav>
 
   <main class="main">
-    <div class="profile-header">
-      <div class="profile-id">
-        <div id="profile-avatar" class="avatar avatar-lg"></div>
+    <div id="view-clients" class="view">
+      <div class="profile-header">
+        <div class="profile-id">
+          <div id="profile-avatar" class="avatar avatar-lg"></div>
+          <div>
+            <h1 id="profile-name" class="profile-name"></h1>
+            <div id="profile-meta" class="profile-meta"></div>
+          </div>
+        </div>
+        <button id="generate-handover-btn" class="btn-primary">Generate handover summary</button>
+      </div>
+
+      <div class="card summary-card">
+        <div class="card-label accent">AI summary</div>
+        <p id="profile-summary" class="summary-text"></p>
+      </div>
+
+      <div class="card">
+        <div class="card-header-row">
+          <div class="card-label">Client profile</div>
+          <div class="hint">Every line links back to the message it came from</div>
+        </div>
+        <div id="profile-facts" class="facts-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Conversation history</div>
+        <div id="profile-history" class="history-list"></div>
+      </div>
+    </div>
+
+    <div id="view-team" class="view" hidden>
+      <div class="profile-header">
         <div>
-          <h1 id="profile-name" class="profile-name"></h1>
-          <div id="profile-meta" class="profile-meta"></div>
+          <h1 class="profile-name">Team</h1>
+          <div class="profile-meta">Who manages which clients</div>
         </div>
       </div>
-      <button class="btn-primary">Generate handover summary</button>
+      <div id="team-grid" class="team-grid"></div>
     </div>
 
-    <div class="card summary-card">
-      <div class="card-label accent">AI summary</div>
-      <p id="profile-summary" class="summary-text"></p>
-    </div>
-
-    <div class="card">
-      <div class="card-header-row">
-        <div class="card-label">Client profile</div>
-        <div class="hint">Every line links back to the message it came from</div>
+    <div id="view-handover" class="view" hidden>
+      <div class="profile-header">
+        <div>
+          <h1 class="profile-name">Handover summary</h1>
+          <div class="profile-meta">Pick a team member to generate their handover</div>
+        </div>
       </div>
-      <div id="profile-facts" class="facts-list"></div>
-    </div>
 
-    <div class="card">
-      <div class="card-label">Conversation history</div>
-      <div id="profile-history" class="history-list"></div>
+      <div class="card">
+        <div class="card-label">Team member</div>
+        <select id="handover-select" class="handover-select">
+          <option value="">Select a team member…</option>
+        </select>
+      </div>
+
+      <div id="handover-result"></div>
     </div>
   </main>
 

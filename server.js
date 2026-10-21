@@ -29,6 +29,14 @@ function requireAuth(req, res, next) {
   }
 }
 
+function requireAdmin(req, res, next) {
+  const user = store.findUserById(req.userId);
+  if (!user || user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admin access required' });
+  }
+  next();
+}
+
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body || {};
   const user = email && store.findUserByEmail(email);
@@ -74,6 +82,16 @@ app.get('/api/clients/:id', requireAuth, (req, res) => {
   const client = store.getClientForUser(user, req.params.id);
   if (!client) return res.status(404).json({ error: 'Client not found' });
   res.json({ client: { ...client, ownerName: store.ownerName(client.ownerId) } });
+});
+
+app.get('/api/team', requireAuth, requireAdmin, (req, res) => {
+  res.json({ team: store.getTeamOverview() });
+});
+
+app.get('/api/handover/:employeeId', requireAuth, requireAdmin, (req, res) => {
+  const summary = store.getHandoverSummary(req.params.employeeId);
+  if (!summary) return res.status(404).json({ error: 'Employee not found' });
+  res.json({ handover: summary });
 });
 
 app.get('/', requireAuth, (req, res) => {
