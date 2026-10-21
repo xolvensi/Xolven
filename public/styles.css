@@ -15,7 +15,12 @@
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--navy);
+  background:
+    radial-gradient(900px 500px at 85% -5%, rgba(29,185,84,0.14) 0%, rgba(29,185,84,0) 60%),
+    radial-gradient(700px 500px at -5% 100%, rgba(29,185,84,0.08) 0%, rgba(29,185,84,0) 60%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 46px),
+    var(--navy);
+  background-attachment: fixed;
   color: var(--white);
 }
 
@@ -434,3 +439,16 @@ a:hover { color: #27d363; }
 .handover-client-name { font-family: 'Montserrat', 'Inter', sans-serif; font-weight: 700; font-size: 15px; color: var(--white); margin: 0 0 4px; }
 .handover-client-phone { font-size: 12px; color: var(--gray-text); margin: 0 0 10px; }
 .handover-empty { color: var(--gray-text); font-size: 13.5px; padding: 8px 0; }
+
+.settings-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; border-bottom: 1px solid var(--gray-line);
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-label { font-size: 13px; color: var(--gray-text); }
+.settings-value { font-size: 14px; color: var(--white); font-weight: 500; }
+.settings-textarea {
+  width: 100%; background: var(--navy-2); border: 1px solid var(--gray-line);
+  border-radius: 8px; padding: 10px 12px; font-size: 13.5px; color: var(--text-dim);
+  font-family: inherit; resize: vertical;
+}

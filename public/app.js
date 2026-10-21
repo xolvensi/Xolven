@@ -146,6 +146,13 @@ function switchView(view) {
 
   if (view === 'team' && currentUser.role === 'admin') loadTeam();
   if (view === 'handover' && currentUser.role === 'admin') loadHandoverOptions();
+  if (view === 'settings') renderSettings();
+}
+
+function renderSettings() {
+  document.getElementById('settings-name').textContent = currentUser.name;
+  document.getElementById('settings-email').textContent = currentUser.email;
+  document.getElementById('settings-role').textContent = currentUser.role === 'admin' ? 'Admin' : 'Team member';
 }
 
 async function loadTeam() {
