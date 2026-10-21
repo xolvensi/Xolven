@@ -16,12 +16,37 @@ body {
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background:
-    radial-gradient(900px 500px at 85% -5%, rgba(29,185,84,0.14) 0%, rgba(29,185,84,0) 60%),
+    radial-gradient(900px 500px at 85% -5%, rgba(29,185,84,0.16) 0%, rgba(29,185,84,0) 60%),
     radial-gradient(700px 500px at -5% 100%, rgba(29,185,84,0.08) 0%, rgba(29,185,84,0) 60%),
-    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 46px),
     var(--navy);
   background-attachment: fixed;
   color: var(--white);
+}
+
+.dash-particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.dash-particles span {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0;
+  animation: particle-drift 7s ease-in-out infinite;
+}
+.dash-particles span:nth-child(1) { top: 8%; left: 55%; animation-delay: 0.2s; }
+.dash-particles span:nth-child(2) { top: 18%; left: 92%; animation-delay: 1.4s; }
+.dash-particles span:nth-child(3) { top: 30%; left: 40%; animation-delay: 2.6s; }
+.dash-particles span:nth-child(4) { top: 42%; left: 85%; animation-delay: 0.8s; }
+.dash-particles span:nth-child(5) { top: 55%; left: 60%; animation-delay: 3.4s; }
+.dash-particles span:nth-child(6) { top: 68%; left: 95%; animation-delay: 1.9s; }
+.dash-particles span:nth-child(7) { top: 78%; left: 48%; animation-delay: 4.2s; }
+.dash-particles span:nth-child(8) { top: 88%; left: 75%; animation-delay: 2.3s; }
+.dash-particles span:nth-child(9) { top: 15%; left: 70%; animation-delay: 5s; }
+.dash-particles span:nth-child(10) { top: 60%; left: 35%; animation-delay: 3.9s; }
+
+.app { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-particles { display: none; }
 }
 
 a { color: var(--green); text-decoration: none; }
