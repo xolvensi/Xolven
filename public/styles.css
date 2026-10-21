@@ -285,6 +285,17 @@ a:hover { color: #27d363; }
   color: var(--gray-text); font-weight: 600; padding: 0 12px 8px;
 }
 
+.client-search {
+  width: 100%; background: var(--navy-2); border: 1px solid var(--gray-line);
+  border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--white);
+  font-family: inherit; margin-bottom: 8px;
+}
+.client-search::placeholder { color: var(--gray-text); }
+.client-search:focus { outline: none; border-color: var(--green); }
+.client-search::-webkit-search-cancel-button { filter: invert(0.6); }
+
+.client-empty { font-size: 12.5px; color: var(--gray-text); padding: 10px 12px; }
+
 .client-list { display: flex; flex-direction: column; gap: 2px; }
 
 .sidebar-footer { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }

@@ -16,6 +16,7 @@ let clients = [];
 let selectedId = null;
 let currentUser = null;
 let teamData = null;
+let clientSearchQuery = '';
 
 async function api(path, options) {
   const res = await fetch(path, {
@@ -32,9 +33,15 @@ async function api(path, options) {
 
 function renderClientList() {
   const list = document.getElementById('client-list');
+  const empty = document.getElementById('client-empty');
   list.innerHTML = '';
 
-  clients.forEach((c) => {
+  const query = clientSearchQuery.trim().toLowerCase();
+  const filtered = query ? clients.filter((c) => c.name.toLowerCase().includes(query)) : clients;
+
+  empty.hidden = filtered.length > 0;
+
+  filtered.forEach((c) => {
     const row = document.createElement('button');
     row.className = 'client-row' + (c.id === selectedId ? ' selected' : '');
     row.type = 'button';
@@ -424,6 +431,11 @@ function initNav() {
 
   document.getElementById('generate-handover-btn').addEventListener('click', () => {
     switchView('handover');
+  });
+
+  document.getElementById('client-search').addEventListener('input', (e) => {
+    clientSearchQuery = e.target.value;
+    renderClientList();
   });
 }
 
