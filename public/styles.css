@@ -309,6 +309,12 @@ a:hover { color: #27d363; }
   gap: 24px;
 }
 
+.view {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .view > * {
   opacity: 0;
   transform: translateY(10px);
@@ -421,8 +427,7 @@ a:hover { color: #27d363; }
 }
 
 .handover-summary-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-.handover-client-card { margin-bottom: 14px; }
-.handover-client-card:last-child { margin-bottom: 0; }
+#handover-result { display: flex; flex-direction: column; gap: 16px; }
 .handover-client-name { font-family: 'Montserrat', 'Inter', sans-serif; font-weight: 700; font-size: 15px; color: var(--white); margin: 0 0 4px; }
 .handover-client-phone { font-size: 12px; color: var(--gray-text); margin: 0 0 10px; }
 .handover-empty { color: var(--gray-text); font-size: 13.5px; padding: 8px 0; }
