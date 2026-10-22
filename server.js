@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const store = require('./lib/store');
+const ai = require('./lib/ai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -82,6 +84,21 @@ app.get('/api/clients/:id', requireAuth, (req, res) => {
   const client = store.getClientForUser(user, req.params.id);
   if (!client) return res.status(404).json({ error: 'Client not found' });
   res.json({ client: { ...client, ownerName: store.ownerName(client.ownerId) } });
+});
+
+app.post('/api/clients/:id/regenerate-summary', requireAuth, async (req, res) => {
+  const user = store.findUserById(req.userId);
+  const client = store.getClientForUser(user, req.params.id);
+  if (!client) return res.status(404).json({ error: 'Client not found' });
+
+  try {
+    const result = await ai.generateClientProfile(client);
+    const updated = store.updateClientProfile(client.id, result);
+    res.json({ client: { ...updated, ownerName: store.ownerName(updated.ownerId) } });
+  } catch (err) {
+    console.error('AI generation failed:', err.message);
+    res.status(502).json({ error: 'Could not generate summary right now. Check the AI API key and try again.' });
+  }
 });
 
 app.get('/api/team', requireAuth, requireAdmin, (req, res) => {
