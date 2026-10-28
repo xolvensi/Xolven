@@ -117,9 +117,9 @@
       "avatarBg": "#D85A30",
       "phone": "+1 954 555 0217",
       "ownerId": "carlos",
-      "lastMessage": "Necesito el contrato actualizado",
+      "lastMessage": "I need the updated contract",
       "hasPending": true,
-      "summary": "Mixed Spanish/English communicator, runs a wholesale food business. Has an open request for an updated contract that has not been addressed in over a week.",
+      "summary": "Runs a wholesale food business. Has an open request for an updated contract that has not been addressed in over a week.",
       "facts": [
         {
           "label": "SOLD",
@@ -142,12 +142,12 @@
         {
           "time": "Fri",
           "from": "Laura",
-          "text": "Necesito el contrato actualizado para mi contador, me lo pueden mandar?"
+          "text": "I need the updated contract for my accountant, can you send it over?"
         },
         {
           "time": "Fri",
           "from": "Carlos",
-          "text": "Claro, te lo envio manana sin falta."
+          "text": "Of course, I'll send it tomorrow without fail."
         }
       ]
     },
@@ -180,9 +180,9 @@
       "avatarBg": "#378ADD",
       "phone": "+57 310 555 0142",
       "ownerId": "carlos",
-      "lastMessage": "Todo bien con la web, gracias",
+      "lastMessage": "Everything's good with the website, thanks",
       "hasPending": false,
-      "summary": "Owns a local hardware store chain, hired Mente Nueva earlier this year for a website rebuild. Communicates in short, direct Spanish messages. Relationship is stable with no open issues right now.",
+      "summary": "Owns a local hardware store chain, hired Mente Nueva earlier this year for a website rebuild. Communicates in short, direct messages. Relationship is stable with no open issues right now.",
       "facts": [
         { "label": "SOLD", "text": "Website rebuild plus hosting setup." },
         { "label": "AGREED", "text": "Annual maintenance plan, $90/mo." },
@@ -190,8 +190,8 @@
         { "label": "DEADLINE", "text": "Next maintenance check-in scheduled for next month." }
       ],
       "history": [
-        { "time": "Tue", "from": "Roberto", "text": "Todo bien con la web, gracias por el trabajo." },
-        { "time": "Tue", "from": "Carlos", "text": "Que bueno! Cualquier cosa me avisas." }
+        { "time": "Tue", "from": "Roberto", "text": "Everything's good with the website, thanks for the work." },
+        { "time": "Tue", "from": "Carlos", "text": "Great to hear! Let me know if anything comes up." }
       ]
     }
   ]

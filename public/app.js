@@ -160,27 +160,31 @@ function switchView(view) {
 // ---- Live Demo (simulated — no real client data, for showing stakeholders how the pipeline works) ----
 
 const DEMO_SCRIPT = {
-  client: { name: 'Isabel Torres', initials: 'IT', avatarBg: '#1DB954', phone: '+1 321 555 0199', owner: 'Carlos R.' },
+  client: { name: 'Olivia Bennett', initials: 'OB', avatarBg: '#1DB954', phone: '+1 512 555 0164', owner: 'Carlos R.' },
   messages: [
-    { from: 'client', type: 'text', time: '10:02 AM', text: 'Hola! queria preguntar por el estado de mi pedido' },
-    { from: 'agent', type: 'text', time: '10:03 AM', text: 'Hola Isabel! dejame revisar, un momento' },
-    { from: 'client', type: 'voice', time: '10:05 AM', duration: '0:38', transcript: 'Tambien queria confirmar si podemos mover la entrega para el jueves, ese dia si voy a estar en la casa' },
-    { from: 'agent', type: 'text', time: '10:07 AM', text: 'Claro, sin problema, lo movemos para el jueves' },
+    { from: 'client', type: 'text', time: '10:02 AM', text: "Hi! Just checking in — how's the project coming along on your end?" },
+    { from: 'agent', type: 'text', time: '10:03 AM', text: 'Hey Olivia! Good timing, we just wrapped up the second design round.' },
+    { from: 'client', type: 'voice', time: '10:05 AM', duration: '0:34', transcript: 'Great, thanks for the update. Quick question — are we still on track to launch by November 30th?' },
+    { from: 'agent', type: 'text', time: '10:07 AM', text: "Yes, still on track. You'll have everything ready before November 30th." },
   ],
   steps: [
-    { label: 'New WhatsApp message received', detail: 'Incoming message from Isabel Torres' },
-    { label: 'Transcribing voice note', detail: 'Converting 38s audio clip to text' },
+    { label: 'New WhatsApp message received', detail: 'Incoming message from Olivia Bennett' },
+    { label: 'Transcribing voice note', detail: 'Converting 34s audio clip to text' },
     { label: 'Reading full conversation', detail: 'Pulling conversation history for context' },
     { label: 'Analyzing with AI', detail: 'Extracting agreements, pending items and deadlines' },
     { label: 'Updating client profile', detail: 'Saving structured summary — nothing is invented' },
   ],
-  summary: 'Long-time client, was following up on an order status. Asked to move delivery to Thursday and confirmed she will be home that day.',
+  summary: 'Working with this client since the website redesign project kicked off. Responsive and easy to coordinate with — the only thing to track is the November 30th launch date she confirmed in her last message.',
   facts: [
-    { label: 'SOLD', text: 'Standard product order, currently in progress.' },
-    { label: 'AGREED', text: 'Delivery date moved to Thursday.' },
-    { label: 'PENDING', text: 'Confirm delivery window for Thursday.' },
-    { label: 'DEADLINE', text: 'Delivery due Thursday.' },
+    { label: 'SOLD', text: 'Website redesign project, full build and launch.' },
+    { label: 'AGREED', text: 'Second design round approved, moving into development.' },
+    { label: 'PENDING', text: 'Nothing open right now.' },
+    { label: 'DEADLINE', text: 'Project delivery due November 30, 2026.' },
   ],
+  qa: {
+    question: "When is this client's project due?",
+    answer: 'Olivia was told the project would be delivered by November 30, 2026 — she confirmed that date in her last message.',
+  },
 };
 
 let demoRunning = false;
@@ -209,9 +213,14 @@ async function runDemo() {
   const chat = document.getElementById('demo-chat');
   const pipeline = document.getElementById('demo-pipeline');
   const profileCard = document.getElementById('demo-profile-card');
+  const askCard = document.getElementById('demo-ask-card');
 
   chat.innerHTML = '';
   profileCard.hidden = true;
+  askCard.hidden = true;
+  document.getElementById('demo-ask-question').textContent = '';
+  document.getElementById('demo-ask-answer').textContent = '';
+  document.getElementById('demo-ask-answer-row').hidden = true;
 
   pipeline.innerHTML = '';
   DEMO_SCRIPT.steps.forEach((step) => {
@@ -308,8 +317,33 @@ async function runDemo() {
     await sleep(220);
   }
 
+  await sleep(600);
+  await runAskXolven();
+
   replayBtn.disabled = false;
   demoRunning = false;
+}
+
+async function runAskXolven() {
+  const askCard = document.getElementById('demo-ask-card');
+  const qEl = document.getElementById('demo-ask-question');
+  const answerRow = document.getElementById('demo-ask-answer-row');
+  const aEl = document.getElementById('demo-ask-answer');
+
+  askCard.hidden = false;
+  askCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  const question = DEMO_SCRIPT.qa.question;
+  for (let i = 0; i < question.length; i++) {
+    qEl.textContent += question[i];
+    await sleep(20);
+  }
+
+  await sleep(500);
+  answerRow.hidden = false;
+  aEl.innerHTML = '<div class="demo-typing" style="opacity:1;"><span></span><span></span><span></span></div>';
+  await sleep(1000);
+  aEl.textContent = DEMO_SCRIPT.qa.answer;
 }
 
 function renderSettings() {
