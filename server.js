@@ -145,12 +145,15 @@ app.delete('/api/users/:id', requireAuth, requireAdmin, (req, res) => {
 });
 
 app.get('/', requireAuth, (req, res) => {
+  res.set('Cache-Control', 'no-cache');
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/index.html', (req, res) => res.redirect('/'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res) => res.set('Cache-Control', 'no-cache'),
+}));
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
