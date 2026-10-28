@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const fs = require('fs');
 const store = require('./lib/store');
 const ai = require('./lib/ai');
 
@@ -11,6 +12,19 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.SESSION_SECRET || 'xolven-dev-secret-change-me';
 const COOKIE_NAME = 'xolven_token';
 const TOKEN_MAX_AGE = 1000 * 60 * 60 * 8;
+
+// Changes on every deploy (process restart), so index.html always points at a
+// fresh ?v= URL for styles.css/app.js. This beats stale CSS/JS even when a
+// CDN or browser ignores Cache-Control headers, because the URL itself changes.
+const ASSET_VERSION = Date.now();
+const INDEX_HTML_PATH = path.join(__dirname, 'public', 'index.html');
+
+function renderIndexHtml() {
+  const html = fs.readFileSync(INDEX_HTML_PATH, 'utf8');
+  return html
+    .replace('href="styles.css"', 'href="styles.css?v=' + ASSET_VERSION + '"')
+    .replace('src="app.js"', 'src="app.js?v=' + ASSET_VERSION + '"');
+}
 
 app.use(express.json());
 app.use(cookieParser());
@@ -146,7 +160,7 @@ app.delete('/api/users/:id', requireAuth, requireAdmin, (req, res) => {
 
 app.get('/', requireAuth, (req, res) => {
   res.set('Cache-Control', 'no-cache');
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.type('html').send(renderIndexHtml());
 });
 
 app.get('/index.html', (req, res) => res.redirect('/'));
