@@ -150,6 +150,49 @@
           "text": "Claro, te lo envio manana sin falta."
         }
       ]
+    },
+    {
+      "id": "sofia",
+      "name": "Sofia Ramirez",
+      "initials": "SR",
+      "avatarBg": "#1DB954",
+      "phone": "+1 407 555 0183",
+      "ownerId": "ana",
+      "lastMessage": "Can we push the campaign launch to Monday?",
+      "hasPending": true,
+      "summary": "Runs a boutique skincare brand, started with Mente Nueva in June for paid ads management. Quick to approve creative, but slow to send product photos, which has delayed the last two campaigns.",
+      "facts": [
+        { "label": "SOLD", "text": "Paid ads management package, Instagram and Facebook." },
+        { "label": "AGREED", "text": "$350/mo ad spend budget, campaigns reviewed every two weeks." },
+        { "label": "PENDING", "text": "Waiting on product photos for the new campaign set." },
+        { "label": "DEADLINE", "text": "Campaign launch moved to Monday." }
+      ],
+      "history": [
+        { "time": "Thu", "from": "Sofia", "text": "Hey! Loved the mockups, can we push launch to Monday though? Still waiting on photos from my supplier." },
+        { "time": "Thu", "from": "Ana", "text": "No problem, Monday works. Let me know as soon as the photos land." },
+        { "time": "Thu", "from": "Sofia", "text": "Will do, thank you for being flexible!" }
+      ]
+    },
+    {
+      "id": "roberto",
+      "name": "Roberto Diaz",
+      "initials": "RD",
+      "avatarBg": "#378ADD",
+      "phone": "+57 310 555 0142",
+      "ownerId": "carlos",
+      "lastMessage": "Todo bien con la web, gracias",
+      "hasPending": false,
+      "summary": "Owns a local hardware store chain, hired Mente Nueva earlier this year for a website rebuild. Communicates in short, direct Spanish messages. Relationship is stable with no open issues right now.",
+      "facts": [
+        { "label": "SOLD", "text": "Website rebuild plus hosting setup." },
+        { "label": "AGREED", "text": "Annual maintenance plan, $90/mo." },
+        { "label": "PENDING", "text": "Nothing open right now." },
+        { "label": "DEADLINE", "text": "Next maintenance check-in scheduled for next month." }
+      ],
+      "history": [
+        { "time": "Tue", "from": "Roberto", "text": "Todo bien con la web, gracias por el trabajo." },
+        { "time": "Tue", "from": "Carlos", "text": "Que bueno! Cualquier cosa me avisas." }
+      ]
     }
   ]
 }
