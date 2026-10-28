@@ -161,29 +161,37 @@ function switchView(view) {
 
 const DEMO_SCRIPT = {
   client: { name: 'Olivia Bennett', initials: 'OB', avatarBg: '#1DB954', phone: '+1 512 555 0164', owner: 'Carlos R.' },
-  messages: [
-    { from: 'client', type: 'text', time: '10:02 AM', text: "Hi! Just checking in — how's the project coming along on your end?" },
-    { from: 'agent', type: 'text', time: '10:03 AM', text: 'Hey Olivia! Good timing, we just wrapped up the second design round.' },
-    { from: 'client', type: 'voice', time: '10:05 AM', duration: '0:34', transcript: 'Great, thanks for the update. Quick question — are we still on track to launch by November 30th?' },
-    { from: 'agent', type: 'text', time: '10:07 AM', text: "Yes, still on track. You'll have everything ready before November 30th." },
+  headlines: [
+    'Your clients already talk to you on <span class="accent">WhatsApp</span>.',
+    'Xolven.Si understands <span class="accent">text and voice notes</span>, even messy, mixed chats.',
+    'Every detail lands in the <span class="accent">client profile</span>.',
+    'So your whole <span class="accent">team</span> is always in context.',
   ],
-  steps: [
-    { label: 'New WhatsApp message received', detail: 'Incoming message from Olivia Bennett' },
-    { label: 'Transcribing voice note', detail: 'Converting 34s audio clip to text' },
-    { label: 'Reading full conversation', detail: 'Pulling conversation history for context' },
-    { label: 'Analyzing with AI', detail: 'Extracting agreements, pending items and deadlines' },
-    { label: 'Updating client profile', detail: 'Saving structured summary — nothing is invented' },
+  phase1: [
+    { from: 'client', type: 'text', text: 'Hi! Just confirming the plan — still $2,400 for the full project?' },
+    { from: 'agent', type: 'text', text: "Yes! We're starting the build on October 10th." },
+  ],
+  phase2: [
+    { from: 'client', type: 'text', text: 'Perfect, sending you a quick voice note with the rest.' },
+    { from: 'client', type: 'voice', duration: '0:34', transcript: 'Also, can we lock the launch date for November 30th? Want to make sure marketing is ready.', highlight: 'November 30th' },
   ],
   summary: 'Working with this client since the website redesign project kicked off. Responsive and easy to coordinate with — the only thing to track is the November 30th launch date she confirmed in her last message.',
   facts: [
     { label: 'SOLD', text: 'Website redesign project, full build and launch.' },
-    { label: 'AGREED', text: 'Second design round approved, moving into development.' },
+    { label: 'AGREED', text: '$2,400 project fee, build starts October 10.' },
     { label: 'PENDING', text: 'Nothing open right now.' },
-    { label: 'DEADLINE', text: 'Project delivery due November 30, 2026.' },
+    { label: 'DEADLINE', text: 'Launch locked for November 30, 2026.', highlight: 'November 30, 2026' },
+  ],
+  team: [
+    { name: 'Maria Gonzalez', sub: 'Invoice follow-up', status: 'pending' },
+    { name: 'Diego Fernandez', sub: 'Content batch sent', status: 'ready' },
+    { name: 'Laura Mendez', sub: 'Contract requested', status: 'pending' },
+    { name: 'Sofia Ramirez', sub: 'Campaign launch moved', status: 'pending' },
+    { name: 'Roberto Diaz', sub: 'Maintenance check-in', status: 'ready' },
   ],
   qa: {
     question: "When is this client's project due?",
-    answer: 'Olivia was told the project would be delivered by November 30, 2026 — she confirmed that date in her last message.',
+    answer: 'Olivia asked to lock the launch date for November 30, 2026 — the project is on track to deliver by then.',
   },
 };
 
@@ -193,14 +201,61 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function setDemoStep(index, state) {
-  const steps = document.querySelectorAll('#demo-pipeline .demo-step');
-  const el = steps[index];
+function setPill(index, state) {
+  const pills = document.querySelectorAll('#demo-pills .demo-pill');
+  const el = pills[index];
   if (!el) return;
   el.classList.remove('active', 'done');
   if (state) el.classList.add(state);
-  const icon = el.querySelector('.demo-step-icon');
-  icon.textContent = state === 'done' ? '✓' : '';
+}
+
+function setHeadline(html) {
+  document.getElementById('demo-headline').innerHTML = html;
+}
+
+function highlightText(text, highlight) {
+  if (!highlight) return text;
+  const idx = text.indexOf(highlight);
+  if (idx === -1) return text;
+  const before = text.slice(0, idx);
+  const after = text.slice(idx + highlight.length);
+  return before + '<span class="highlight">' + highlight + '</span>' + after;
+}
+
+async function appendPhoneMessage(msg) {
+  const body = document.getElementById('demo-phone-body');
+
+  const typing = document.createElement('div');
+  typing.className = 'demo-typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  body.append(typing);
+  await sleep(500);
+  typing.remove();
+
+  const row = document.createElement('div');
+  row.className = 'demo-msg ' + msg.from;
+
+  if (msg.type === 'voice') {
+    row.innerHTML =
+      '<div class="demo-bubble demo-voice-bubble">' +
+      '<div class="demo-voice-icon">▶</div>' +
+      '<div class="demo-voice-wave"><span></span><span></span><span></span><span></span><span></span><span></span></div>' +
+      '<span class="demo-voice-duration">' + msg.duration + '</span>' +
+      '</div>';
+  } else {
+    row.innerHTML = '<div class="demo-bubble">' + msg.text + '</div>';
+  }
+  body.append(row);
+
+  if (msg.type === 'voice') {
+    await sleep(800);
+    const transcript = document.createElement('div');
+    transcript.className = 'demo-transcript';
+    transcript.innerHTML = '"' + highlightText(msg.transcript, msg.highlight) + '"';
+    row.querySelector('.demo-bubble').after(transcript);
+  }
+
+  await sleep(500);
 }
 
 async function runDemo() {
@@ -210,87 +265,95 @@ async function runDemo() {
   const replayBtn = document.getElementById('demo-replay-btn');
   replayBtn.disabled = true;
 
-  const chat = document.getElementById('demo-chat');
-  const pipeline = document.getElementById('demo-pipeline');
+  const phoneBody = document.getElementById('demo-phone-body');
+  const phoneStatus = document.getElementById('demo-phone-status');
+  const profileMini = document.getElementById('demo-profile-mini');
+  const profileMiniBody = document.getElementById('demo-profile-mini-body');
+  const profileBadge = document.getElementById('demo-profile-badge');
+  const teamMini = document.getElementById('demo-team-mini');
+  const teamMiniList = document.getElementById('demo-team-mini-list');
   const profileCard = document.getElementById('demo-profile-card');
   const askCard = document.getElementById('demo-ask-card');
 
-  chat.innerHTML = '';
+  phoneBody.innerHTML = '';
+  phoneStatus.textContent = 'online';
+  profileMini.hidden = true;
+  profileMini.classList.remove('show');
+  profileMiniBody.innerHTML = '';
+  profileBadge.textContent = 'Updating…';
+  profileBadge.classList.remove('ready');
+  teamMini.hidden = true;
+  teamMini.classList.remove('show');
+  teamMiniList.innerHTML = '';
   profileCard.hidden = true;
   askCard.hidden = true;
   document.getElementById('demo-ask-question').textContent = '';
   document.getElementById('demo-ask-answer').textContent = '';
   document.getElementById('demo-ask-answer-row').hidden = true;
+  document.querySelectorAll('#demo-pills .demo-pill').forEach((p) => p.classList.remove('active', 'done'));
 
-  pipeline.innerHTML = '';
-  DEMO_SCRIPT.steps.forEach((step) => {
-    const row = document.createElement('div');
-    row.className = 'demo-step';
-    row.innerHTML =
-      '<div class="demo-step-icon"></div>' +
-      '<div><div class="demo-step-label">' + step.label + '</div><div class="demo-step-detail">' + step.detail + '</div></div>';
-    pipeline.append(row);
-  });
+  await sleep(300);
 
+  // Step 1 — Connect WhatsApp Business
+  setHeadline(DEMO_SCRIPT.headlines[0]);
+  setPill(0, 'active');
+  for (const msg of DEMO_SCRIPT.phase1) {
+    await appendPhoneMessage(msg);
+  }
+  setPill(0, 'done');
+
+  // Step 2 — AI organises every conversation
+  setHeadline(DEMO_SCRIPT.headlines[1]);
+  setPill(1, 'active');
+  phoneStatus.textContent = 'Xolven.Si is listening…';
+  for (const msg of DEMO_SCRIPT.phase2) {
+    await appendPhoneMessage(msg);
+  }
+  phoneStatus.textContent = 'online';
+  setPill(1, 'done');
   await sleep(400);
 
-  for (let i = 0; i < DEMO_SCRIPT.messages.length; i++) {
-    const msg = DEMO_SCRIPT.messages[i];
+  // Step 3 — Always-updated client profile
+  setHeadline(DEMO_SCRIPT.headlines[2]);
+  setPill(2, 'active');
+  profileMini.hidden = false;
+  await sleep(30);
+  profileMini.classList.add('show');
 
-    const typing = document.createElement('div');
-    typing.className = 'demo-typing';
-    typing.innerHTML = '<span></span><span></span><span></span>';
-    chat.append(typing);
-    chat.scrollTop = chat.scrollHeight;
-    await sleep(500);
-    typing.remove();
-
+  for (const f of DEMO_SCRIPT.facts) {
     const row = document.createElement('div');
-    row.className = 'demo-msg ' + msg.from;
-
-    if (msg.type === 'voice') {
-      row.innerHTML =
-        '<div class="demo-bubble demo-voice-bubble">' +
-        '<div class="demo-voice-icon">▶</div>' +
-        '<div class="demo-voice-wave"><span></span><span></span><span></span><span></span><span></span><span></span></div>' +
-        '<span class="demo-voice-duration">' + msg.duration + '</span>' +
-        '</div>';
-    } else {
-      row.innerHTML = '<div class="demo-bubble">' + msg.text + '<span class="demo-bubble-time">' + msg.time + '</span></div>';
-    }
-    chat.append(row);
-    chat.scrollTop = chat.scrollHeight;
-
-    if (msg.from === 'client' && i === 0) setDemoStep(0, 'active');
-
-    if (msg.type === 'voice') {
-      setDemoStep(1, 'active');
-      await sleep(900);
-      const transcript = document.createElement('div');
-      transcript.className = 'demo-transcript';
-      transcript.textContent = '"' + msg.transcript + '"';
-      row.querySelector('.demo-bubble').after(transcript);
-      setDemoStep(1, 'done');
-      setDemoStep(0, 'done');
-      chat.scrollTop = chat.scrollHeight;
-    }
-
-    await sleep(600);
+    row.className = 'demo-mini-fact';
+    row.innerHTML =
+      '<div class="demo-mini-fact-label">' + f.label + '</div>' +
+      '<div class="demo-mini-fact-text">' + highlightText(f.text, f.highlight) + '</div>';
+    profileMiniBody.append(row);
+    await sleep(350);
   }
 
-  setDemoStep(0, 'done');
-  setDemoStep(1, 'done');
-  setDemoStep(2, 'active');
-  await sleep(800);
-  setDemoStep(2, 'done');
+  profileBadge.textContent = 'Up to date';
+  profileBadge.classList.add('ready');
+  setPill(2, 'done');
+  await sleep(600);
 
-  setDemoStep(3, 'active');
-  await sleep(1100);
-  setDemoStep(3, 'done');
+  // Step 4 — Never lose context
+  setHeadline(DEMO_SCRIPT.headlines[3]);
+  setPill(3, 'active');
+  teamMini.hidden = false;
+  await sleep(30);
+  teamMini.classList.add('show');
 
-  setDemoStep(4, 'active');
-  await sleep(700);
-  setDemoStep(4, 'done');
+  for (const member of DEMO_SCRIPT.team) {
+    const row = document.createElement('div');
+    row.className = 'demo-team-row';
+    row.innerHTML =
+      '<div class="demo-team-row-info"><div class="demo-team-row-name">' + member.name + '</div>' +
+      '<div class="demo-team-row-sub">' + member.sub + '</div></div>' +
+      '<div class="demo-team-row-pill ' + member.status + '">' + (member.status === 'ready' ? 'Up to date' : 'Pending') + '</div>';
+    teamMiniList.append(row);
+    await sleep(180);
+  }
+  setPill(3, 'done');
+  await sleep(600);
 
   const c = DEMO_SCRIPT.client;
   document.getElementById('demo-profile-avatar').style.background = c.avatarBg;

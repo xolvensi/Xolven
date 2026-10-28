@@ -98,15 +98,49 @@
         <button id="demo-replay-btn" type="button" class="btn-primary">Run demo again</button>
       </div>
 
-      <div class="demo-grid">
-        <div class="card demo-chat-card">
-          <div class="card-label">WhatsApp conversation</div>
-          <div id="demo-chat" class="demo-chat"></div>
+      <div class="demo-headline" id="demo-headline"></div>
+      <div class="demo-pills" id="demo-pills">
+        <span class="demo-pill" data-step="1"><span class="demo-pill-num">1</span>Connect WhatsApp Business</span>
+        <span class="demo-pill" data-step="2"><span class="demo-pill-num">2</span>AI organises every conversation</span>
+        <span class="demo-pill" data-step="3"><span class="demo-pill-num">3</span>Always-updated client profile</span>
+        <span class="demo-pill" data-step="4"><span class="demo-pill-num">4</span>Never lose context</span>
+      </div>
+
+      <div class="demo-stage" id="demo-stage">
+        <div class="demo-phone" id="demo-phone">
+          <div class="demo-phone-head">
+            <div class="avatar avatar-sm">SA</div>
+            <div class="demo-phone-head-text">
+              <div class="demo-phone-name">Sample Client A</div>
+              <div class="demo-phone-status" id="demo-phone-status">online</div>
+            </div>
+            <div class="demo-phone-brand"><span class="demo-dot"></span>Xolven.Si</div>
+          </div>
+          <div class="demo-phone-body" id="demo-phone-body"></div>
         </div>
 
-        <div class="card demo-pipeline-card">
-          <div class="card-label">What Xolven.Si is doing</div>
-          <div id="demo-pipeline" class="demo-pipeline"></div>
+        <div class="demo-profile-mini" id="demo-profile-mini" hidden>
+          <div class="demo-phone-head">
+            <div class="avatar avatar-sm">SA</div>
+            <div class="demo-phone-head-text">
+              <div class="demo-phone-name">Sample Client A</div>
+              <div class="demo-phone-status">Client profile · auto-updated</div>
+            </div>
+            <span class="demo-profile-badge" id="demo-profile-badge">Updating…</span>
+          </div>
+          <div class="demo-profile-mini-body" id="demo-profile-mini-body"></div>
+          <div class="demo-profile-mini-foot">Every line links back to the message it came from</div>
+        </div>
+
+        <div class="demo-team-mini" id="demo-team-mini" hidden>
+          <div class="demo-phone-head">
+            <div class="demo-phone-head-text">
+              <div class="demo-phone-name">Clients</div>
+              <div class="demo-phone-status">5 active conversations</div>
+            </div>
+          </div>
+          <div class="demo-team-mini-list" id="demo-team-mini-list"></div>
+          <div class="demo-profile-mini-foot">✓ Shared with your whole team</div>
         </div>
       </div>
 
