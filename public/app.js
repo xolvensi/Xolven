@@ -154,6 +154,162 @@ function switchView(view) {
   if (view === 'team' && currentUser.role === 'admin') loadTeam();
   if (view === 'handover' && currentUser.role === 'admin') loadHandoverOptions();
   if (view === 'settings') renderSettings();
+  if (view === 'demo') runDemo();
+}
+
+// ---- Live Demo (simulated — no real client data, for showing stakeholders how the pipeline works) ----
+
+const DEMO_SCRIPT = {
+  client: { name: 'Isabel Torres', initials: 'IT', avatarBg: '#1DB954', phone: '+1 321 555 0199', owner: 'Carlos R.' },
+  messages: [
+    { from: 'client', type: 'text', time: '10:02 AM', text: 'Hola! queria preguntar por el estado de mi pedido' },
+    { from: 'agent', type: 'text', time: '10:03 AM', text: 'Hola Isabel! dejame revisar, un momento' },
+    { from: 'client', type: 'voice', time: '10:05 AM', duration: '0:38', transcript: 'Tambien queria confirmar si podemos mover la entrega para el jueves, ese dia si voy a estar en la casa' },
+    { from: 'agent', type: 'text', time: '10:07 AM', text: 'Claro, sin problema, lo movemos para el jueves' },
+  ],
+  steps: [
+    { label: 'New WhatsApp message received', detail: 'Incoming message from Isabel Torres' },
+    { label: 'Transcribing voice note', detail: 'Converting 38s audio clip to text' },
+    { label: 'Reading full conversation', detail: 'Pulling conversation history for context' },
+    { label: 'Analyzing with AI', detail: 'Extracting agreements, pending items and deadlines' },
+    { label: 'Updating client profile', detail: 'Saving structured summary — nothing is invented' },
+  ],
+  summary: 'Long-time client, was following up on an order status. Asked to move delivery to Thursday and confirmed she will be home that day.',
+  facts: [
+    { label: 'SOLD', text: 'Standard product order, currently in progress.' },
+    { label: 'AGREED', text: 'Delivery date moved to Thursday.' },
+    { label: 'PENDING', text: 'Confirm delivery window for Thursday.' },
+    { label: 'DEADLINE', text: 'Delivery due Thursday.' },
+  ],
+};
+
+let demoRunning = false;
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function setDemoStep(index, state) {
+  const steps = document.querySelectorAll('#demo-pipeline .demo-step');
+  const el = steps[index];
+  if (!el) return;
+  el.classList.remove('active', 'done');
+  if (state) el.classList.add(state);
+  const icon = el.querySelector('.demo-step-icon');
+  icon.textContent = state === 'done' ? '✓' : '';
+}
+
+async function runDemo() {
+  if (demoRunning) return;
+  demoRunning = true;
+
+  const replayBtn = document.getElementById('demo-replay-btn');
+  replayBtn.disabled = true;
+
+  const chat = document.getElementById('demo-chat');
+  const pipeline = document.getElementById('demo-pipeline');
+  const profileCard = document.getElementById('demo-profile-card');
+
+  chat.innerHTML = '';
+  profileCard.hidden = true;
+
+  pipeline.innerHTML = '';
+  DEMO_SCRIPT.steps.forEach((step) => {
+    const row = document.createElement('div');
+    row.className = 'demo-step';
+    row.innerHTML =
+      '<div class="demo-step-icon"></div>' +
+      '<div><div class="demo-step-label">' + step.label + '</div><div class="demo-step-detail">' + step.detail + '</div></div>';
+    pipeline.append(row);
+  });
+
+  await sleep(400);
+
+  for (let i = 0; i < DEMO_SCRIPT.messages.length; i++) {
+    const msg = DEMO_SCRIPT.messages[i];
+
+    const typing = document.createElement('div');
+    typing.className = 'demo-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    chat.append(typing);
+    chat.scrollTop = chat.scrollHeight;
+    await sleep(500);
+    typing.remove();
+
+    const row = document.createElement('div');
+    row.className = 'demo-msg ' + msg.from;
+
+    if (msg.type === 'voice') {
+      row.innerHTML =
+        '<div class="demo-bubble demo-voice-bubble">' +
+        '<div class="demo-voice-icon">▶</div>' +
+        '<div class="demo-voice-wave"><span></span><span></span><span></span><span></span><span></span><span></span></div>' +
+        '<span class="demo-voice-duration">' + msg.duration + '</span>' +
+        '</div>';
+    } else {
+      row.innerHTML = '<div class="demo-bubble">' + msg.text + '<span class="demo-bubble-time">' + msg.time + '</span></div>';
+    }
+    chat.append(row);
+    chat.scrollTop = chat.scrollHeight;
+
+    if (msg.from === 'client' && i === 0) setDemoStep(0, 'active');
+
+    if (msg.type === 'voice') {
+      setDemoStep(1, 'active');
+      await sleep(900);
+      const transcript = document.createElement('div');
+      transcript.className = 'demo-transcript';
+      transcript.textContent = '"' + msg.transcript + '"';
+      row.querySelector('.demo-bubble').after(transcript);
+      setDemoStep(1, 'done');
+      setDemoStep(0, 'done');
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    await sleep(600);
+  }
+
+  setDemoStep(0, 'done');
+  setDemoStep(1, 'done');
+  setDemoStep(2, 'active');
+  await sleep(800);
+  setDemoStep(2, 'done');
+
+  setDemoStep(3, 'active');
+  await sleep(1100);
+  setDemoStep(3, 'done');
+
+  setDemoStep(4, 'active');
+  await sleep(700);
+  setDemoStep(4, 'done');
+
+  const c = DEMO_SCRIPT.client;
+  document.getElementById('demo-profile-avatar').style.background = c.avatarBg;
+  document.getElementById('demo-profile-avatar').textContent = c.initials;
+  document.getElementById('demo-profile-name').textContent = c.name;
+  document.getElementById('demo-profile-meta').textContent = c.phone + ' · owned by ' + c.owner;
+  document.getElementById('demo-profile-summary').textContent = DEMO_SCRIPT.summary;
+
+  const facts = document.getElementById('demo-profile-facts');
+  facts.innerHTML = '';
+  profileCard.hidden = false;
+
+  for (const f of DEMO_SCRIPT.facts) {
+    const row = document.createElement('div');
+    row.className = 'fact-row demo-msg client';
+    const tag = document.createElement('div');
+    tag.className = 'tag ' + (TAG_CLASS[f.label] || '');
+    tag.textContent = f.label;
+    const text = document.createElement('div');
+    text.className = 'fact-text';
+    text.textContent = f.text;
+    row.append(tag, text);
+    facts.append(row);
+    await sleep(220);
+  }
+
+  replayBtn.disabled = false;
+  demoRunning = false;
 }
 
 function renderSettings() {
@@ -436,6 +592,10 @@ function initNav() {
   document.getElementById('client-search').addEventListener('input', (e) => {
     clientSearchQuery = e.target.value;
     renderClientList();
+  });
+
+  document.getElementById('demo-replay-btn').addEventListener('click', () => {
+    runDemo();
   });
 }
 

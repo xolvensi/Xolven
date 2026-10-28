@@ -33,6 +33,7 @@
 
     <div class="nav-links">
       <a href="#" class="nav-link active" data-view="clients">Clients</a>
+      <a href="#" class="nav-link" data-view="demo">Live Demo</a>
       <a href="#" class="nav-link" data-view="team" id="nav-team" hidden>Team</a>
       <a href="#" class="nav-link" data-view="handover" id="nav-handover" hidden>Handover summary</a>
       <a href="#" class="nav-link" data-view="settings">Settings</a>
@@ -85,6 +86,41 @@
       <div class="card">
         <div class="card-label">Conversation history</div>
         <div id="profile-history" class="history-list"></div>
+      </div>
+    </div>
+
+    <div id="view-demo" class="view" hidden>
+      <div class="profile-header">
+        <div>
+          <h1 class="profile-name">Live Demo</h1>
+          <div class="profile-meta">A simulated run — not a real client — showing how Xolven.Si reads a conversation and builds a profile from it</div>
+        </div>
+        <button id="demo-replay-btn" type="button" class="btn-primary">Run demo again</button>
+      </div>
+
+      <div class="demo-grid">
+        <div class="card demo-chat-card">
+          <div class="card-label">WhatsApp conversation</div>
+          <div id="demo-chat" class="demo-chat"></div>
+        </div>
+
+        <div class="card demo-pipeline-card">
+          <div class="card-label">What Xolven.Si is doing</div>
+          <div id="demo-pipeline" class="demo-pipeline"></div>
+        </div>
+      </div>
+
+      <div id="demo-profile-card" class="card demo-profile-card" hidden>
+        <div class="card-label accent">Generated client profile</div>
+        <div class="demo-profile-head">
+          <div id="demo-profile-avatar" class="avatar avatar-lg"></div>
+          <div>
+            <h2 id="demo-profile-name" class="profile-name"></h2>
+            <div id="demo-profile-meta" class="profile-meta"></div>
+          </div>
+        </div>
+        <p id="demo-profile-summary" class="summary-text"></p>
+        <div id="demo-profile-facts" class="facts-list"></div>
       </div>
     </div>
 
