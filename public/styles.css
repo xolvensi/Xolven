@@ -399,6 +399,26 @@ a:hover { color: #27d363; }
 }
 .btn-primary:hover { background: #27d363; }
 .btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+.profile-header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn-secondary {
+  background: transparent; color: var(--green); border: 1.5px solid var(--green); border-radius: 8px;
+  padding: 10px 16px; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+.btn-secondary:hover { background: rgba(29,185,84,0.1); }
+.btn-secondary:active { transform: scale(0.97); }
+.btn-secondary:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+.regenerate-status { font-size: 12px; color: var(--green); display: flex; align-items: center; gap: 6px; }
+.regenerate-status .spin {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 1.5px solid var(--green); border-top-color: transparent;
+  animation: demo-spin 0.8s linear infinite;
+}
+@keyframes demo-spin { to { transform: rotate(360deg); } }
 
 .card {
   background: var(--navy-3); border: 1px solid var(--gray-line);

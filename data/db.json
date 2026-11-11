@@ -20,6 +20,20 @@
       "email": "ana@mentenueva.com",
       "passwordHash": "$2b$10$657/x.P86haL8orPmO3EcuGYQEfji.a0aAZE5j5RpPCUJ6ppte2vm",
       "role": "member"
+    },
+    {
+      "id": "daniel",
+      "name": "Daniel M.",
+      "email": "daniel@mentenueva.com",
+      "passwordHash": "$2b$10$657/x.P86haL8orPmO3EcuGYQEfji.a0aAZE5j5RpPCUJ6ppte2vm",
+      "role": "member"
+    },
+    {
+      "id": "laura-t",
+      "name": "Laura T.",
+      "email": "laura@mentenueva.com",
+      "passwordHash": "$2b$10$657/x.P86haL8orPmO3EcuGYQEfji.a0aAZE5j5RpPCUJ6ppte2vm",
+      "role": "member"
     }
   ],
   "clients": [
@@ -162,15 +176,39 @@
       "hasPending": true,
       "summary": "Runs a boutique skincare brand, started with Mente Nueva in June for paid ads management. Quick to approve creative, but slow to send product photos, which has delayed the last two campaigns.",
       "facts": [
-        { "label": "SOLD", "text": "Paid ads management package, Instagram and Facebook." },
-        { "label": "AGREED", "text": "$350/mo ad spend budget, campaigns reviewed every two weeks." },
-        { "label": "PENDING", "text": "Waiting on product photos for the new campaign set." },
-        { "label": "DEADLINE", "text": "Campaign launch moved to Monday." }
+        {
+          "label": "SOLD",
+          "text": "Paid ads management package, Instagram and Facebook."
+        },
+        {
+          "label": "AGREED",
+          "text": "$350/mo ad spend budget, campaigns reviewed every two weeks."
+        },
+        {
+          "label": "PENDING",
+          "text": "Waiting on product photos for the new campaign set."
+        },
+        {
+          "label": "DEADLINE",
+          "text": "Campaign launch moved to Monday."
+        }
       ],
       "history": [
-        { "time": "Thu", "from": "Sofia", "text": "Hey! Loved the mockups, can we push launch to Monday though? Still waiting on photos from my supplier." },
-        { "time": "Thu", "from": "Ana", "text": "No problem, Monday works. Let me know as soon as the photos land." },
-        { "time": "Thu", "from": "Sofia", "text": "Will do, thank you for being flexible!" }
+        {
+          "time": "Thu",
+          "from": "Sofia",
+          "text": "Hey! Loved the mockups, can we push launch to Monday though? Still waiting on photos from my supplier."
+        },
+        {
+          "time": "Thu",
+          "from": "Ana",
+          "text": "No problem, Monday works. Let me know as soon as the photos land."
+        },
+        {
+          "time": "Thu",
+          "from": "Sofia",
+          "text": "Will do, thank you for being flexible!"
+        }
       ]
     },
     {
@@ -184,14 +222,190 @@
       "hasPending": false,
       "summary": "Owns a local hardware store chain, hired Mente Nueva earlier this year for a website rebuild. Communicates in short, direct messages. Relationship is stable with no open issues right now.",
       "facts": [
-        { "label": "SOLD", "text": "Website rebuild plus hosting setup." },
-        { "label": "AGREED", "text": "Annual maintenance plan, $90/mo." },
-        { "label": "PENDING", "text": "Nothing open right now." },
-        { "label": "DEADLINE", "text": "Next maintenance check-in scheduled for next month." }
+        {
+          "label": "SOLD",
+          "text": "Website rebuild plus hosting setup."
+        },
+        {
+          "label": "AGREED",
+          "text": "Annual maintenance plan, $90/mo."
+        },
+        {
+          "label": "PENDING",
+          "text": "Nothing open right now."
+        },
+        {
+          "label": "DEADLINE",
+          "text": "Next maintenance check-in scheduled for next month."
+        }
       ],
       "history": [
-        { "time": "Tue", "from": "Roberto", "text": "Everything's good with the website, thanks for the work." },
-        { "time": "Tue", "from": "Carlos", "text": "Great to hear! Let me know if anything comes up." }
+        {
+          "time": "Tue",
+          "from": "Roberto",
+          "text": "Everything's good with the website, thanks for the work."
+        },
+        {
+          "time": "Tue",
+          "from": "Carlos",
+          "text": "Great to hear! Let me know if anything comes up."
+        }
+      ]
+    },
+    {
+      "id": "casa-luna",
+      "name": "Casa Luna Restaurant",
+      "initials": "CL",
+      "avatarBg": "#D85A30",
+      "phone": "+1 786 555 0120",
+      "ownerId": "daniel",
+      "lastMessage": "Perfect, see you then!",
+      "hasPending": false,
+      "summary": "Casa Luna Restaurant is a client that has booked a photoshoot of its new menu with Daniel's business. The conversation is friendly and the schedule has been settled, with the shoot moved to 11am this Friday. The client also gave a style request for the dessert shots.",
+      "facts": [
+        {
+          "label": "SOLD",
+          "text": "A photoshoot of the new menu is booked for this Friday."
+        },
+        {
+          "label": "AGREED",
+          "text": "The shoot was moved from 10am to 11am on Friday because the restaurant's morning prep runs late."
+        },
+        {
+          "label": "AGREED",
+          "text": "No flash will be used on the dessert shots; the client wants natural light."
+        },
+        {
+          "label": "PENDING",
+          "text": "Nothing open right now."
+        },
+        {
+          "label": "DEADLINE",
+          "text": "The photoshoot is this Friday at 11am."
+        }
+      ],
+      "history": [
+        {
+          "time": "Mon 9:02 AM",
+          "from": "Casa Luna",
+          "text": "Hi! Just confirming the new menu photoshoot is still on for this Friday?"
+        },
+        {
+          "time": "Mon 9:10 AM",
+          "from": "Daniel",
+          "text": "Yes, confirmed for Friday. We'll arrive at 10am with the equipment."
+        },
+        {
+          "time": "Mon 9:12 AM",
+          "from": "Casa Luna",
+          "text": "Great, one thing though - can we push it to 11am instead? Our morning prep runs a bit late on Fridays."
+        },
+        {
+          "time": "Mon 9:13 AM",
+          "from": "Daniel",
+          "text": "No problem, 11am works on our end too."
+        },
+        {
+          "time": "Mon 9:15 AM",
+          "from": "Casa Luna",
+          "text": "Perfect, see you then! Also, please don't use flash on the dessert shots, they look better with natural light."
+        }
+      ]
+    },
+    {
+      "id": "limpieza-brillante",
+      "name": "Limpieza Brillante",
+      "initials": "LB",
+      "avatarBg": "#1DB954",
+      "phone": "+1 305 555 0177",
+      "ownerId": "daniel",
+      "lastMessage": "Nota de voz (0:34)",
+      "hasPending": true,
+      "summary": "Limpieza Brillante is a cleaning business that is ordering new uniforms for its team from us. They have just increased the order from 12 to 15 uniforms because they hired 3 more people, and they are changing the embroidered logo color to match their new brand colors. The order is still in progress and Daniel has not yet confirmed the changes.",
+      "facts": [
+        {
+          "label": "SOLD",
+          "text": "New team uniforms, originally 12 size M, now requested as 15 uniforms."
+        },
+        {
+          "label": "AGREED",
+          "text": "Daniel confirmed 12 size M uniforms would be ready by Thursday."
+        },
+        {
+          "label": "PENDING",
+          "text": "Daniel has not yet confirmed the increase to 15 uniforms or the change of the embroidered logo to dark blue instead of green."
+        },
+        {
+          "label": "DEADLINE",
+          "text": "The client needs the uniforms ready before Monday, when the new hires start working."
+        }
+      ],
+      "history": [
+        {
+          "time": "Mie 2:10 PM",
+          "from": "Limpieza Brillante",
+          "text": "Hola! queria confirmar el pedido de uniformes nuevos para el equipo"
+        },
+        {
+          "time": "Mie 2:15 PM",
+          "from": "Daniel",
+          "text": "Hola! si, 12 uniformes talla M, los tenemos listos para el jueves"
+        },
+        {
+          "time": "Mie 2:30 PM",
+          "from": "Limpieza Brillante",
+          "text": "[NOTA DE VOZ, transcrita] Ah perfecto, oye una cosa, mejor que sean 15 uniformes, contratamos 3 personas mas esta semana. Y tambien queria pedirte que el logo bordado quede en azul oscuro, no en el verde que usamos antes, cambiamos los colores de la marca. Esto lo necesito listo antes del lunes porque empiezan a trabajar ese dia"
+        }
+      ]
+    },
+    {
+      "id": "studio-norte",
+      "name": "Studio Norte",
+      "initials": "SN",
+      "avatarBg": "#378ADD",
+      "phone": "+1 954 555 0133",
+      "ownerId": "daniel",
+      "lastMessage": "Sounds good, gracias!",
+      "hasPending": true,
+      "summary": "Studio Norte is a client who has received new brand templates from Daniel's business and is happy with them. They asked for an additional Stories version, which Daniel promised to send. The relationship appears positive, with one delivery still outstanding.",
+      "facts": [
+        {
+          "label": "SOLD",
+          "text": "New brand templates were delivered, and Studio Norte said they look great."
+        },
+        {
+          "label": "AGREED",
+          "text": "Daniel agreed to send the Stories version of the templates."
+        },
+        {
+          "label": "AGREED",
+          "text": "Studio Norte prefers the files in PNG format, not PDF, so their designer can edit them directly."
+        },
+        {
+          "label": "PENDING",
+          "text": "Daniel still needs to send the Stories version of the templates, in PNG."
+        },
+        {
+          "label": "DEADLINE",
+          "text": "Daniel said he would send the Stories templates today in the afternoon."
+        }
+      ],
+      "history": [
+        {
+          "time": "Thu 4:00 PM",
+          "from": "Studio Norte",
+          "text": "Hey, the new brand templates look great! Quick question, puedes mandarme tambien la version para Stories?"
+        },
+        {
+          "time": "Thu 4:05 PM",
+          "from": "Daniel",
+          "text": "Of course, te las envio hoy mismo en la tarde"
+        },
+        {
+          "time": "Thu 4:06 PM",
+          "from": "Studio Norte",
+          "text": "Sounds good, gracias! Prefiero que me las manden en PNG, no en PDF, so our designer can edit them directly"
+        }
       ]
     }
   ]

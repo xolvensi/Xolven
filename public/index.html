@@ -67,11 +67,17 @@
             <div id="profile-meta" class="profile-meta"></div>
           </div>
         </div>
-        <button id="generate-handover-btn" class="btn-primary">Generate handover summary</button>
+        <div class="profile-header-actions">
+          <button id="regenerate-ai-btn" class="btn-secondary">Regenerate with AI</button>
+          <button id="generate-handover-btn" class="btn-primary">Generate handover summary</button>
+        </div>
       </div>
 
       <div class="card summary-card">
-        <div class="card-label accent">AI summary</div>
+        <div class="card-header-row">
+          <div class="card-label accent">AI summary</div>
+          <div id="regenerate-status" class="regenerate-status" hidden></div>
+        </div>
         <p id="profile-summary" class="summary-text"></p>
       </div>
 

@@ -686,6 +686,27 @@ function initNav() {
     switchView('handover');
   });
 
+  document.getElementById('regenerate-ai-btn').addEventListener('click', async () => {
+    if (!selectedId) return;
+    const btn = document.getElementById('regenerate-ai-btn');
+    const status = document.getElementById('regenerate-status');
+    btn.disabled = true;
+    status.hidden = false;
+    status.innerHTML = '<span class="spin"></span> Generating…';
+
+    try {
+      const { client } = await api('/api/clients/' + selectedId + '/regenerate-summary', { method: 'POST' });
+      renderProfile(client);
+      renderClientList();
+      status.innerHTML = '✓ Updated just now';
+      setTimeout(() => { status.hidden = true; }, 2500);
+    } catch (err) {
+      status.innerHTML = 'Could not regenerate. Check the AI connection.';
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
   document.getElementById('client-search').addEventListener('input', (e) => {
     clientSearchQuery = e.target.value;
     renderClientList();
