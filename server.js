@@ -7,6 +7,7 @@ const fs = require('fs');
 const store = require('./lib/store');
 const ai = require('./lib/ai');
 const whatsapp = require('./lib/whatsapp');
+const media = require('./lib/media');
 const QRCode = require('qrcode');
 
 const app = express();
@@ -115,6 +116,16 @@ app.post('/api/clients/:id/regenerate-summary', requireAuth, async (req, res) =>
     console.error('AI generation failed:', err.message);
     res.status(502).json({ error: 'Could not generate summary right now. Check the AI API key and try again.' });
   }
+});
+
+app.get('/media/:file', requireAuth, (req, res) => {
+  const file = req.params.file;
+  const user = store.findUserById(req.userId);
+  const allowed = /^[\w.-]+$/.test(file) && store.getClientsForUser(user).some((c) => c.history.some((m) => m.audio === file));
+  if (!allowed) return res.status(404).end();
+  res.sendFile(file, { root: media.MEDIA_DIR }, (err) => {
+    if (err && !res.headersSent) res.status(404).end();
+  });
 });
 
 app.get('/api/whatsapp/status', requireAuth, requireAdmin, async (req, res) => {

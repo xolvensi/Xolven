@@ -505,6 +505,7 @@ a:hover { color: #27d363; }
 .settings-label { font-size: 13px; color: var(--gray-text); }
 .settings-value { font-size: 14px; color: var(--white); font-weight: 500; }
 .whatsapp-qr-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 14px; }
+.history-audio { display: block; width: 100%; max-width: 380px; height: 36px; margin: 8px 0 10px; }
 .whatsapp-qr-wrap[hidden] { display: none; }
 .whatsapp-qr { width: 220px; height: 220px; border-radius: 8px; background: #fff; padding: 8px; }
 .settings-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; }

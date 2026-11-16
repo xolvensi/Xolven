@@ -137,7 +137,16 @@ function renderProfile(c) {
     const text = document.createElement('div');
     text.className = 'history-text';
     text.textContent = m.text;
-    bubble.append(from, text);
+    if (m.audio) {
+      const player = document.createElement('audio');
+      player.className = 'history-audio';
+      player.controls = true;
+      player.preload = 'none';
+      player.src = '/media/' + encodeURIComponent(m.audio);
+      bubble.append(from, player, text);
+    } else {
+      bubble.append(from, text);
+    }
 
     row.append(time, bubble);
     history.append(row);
