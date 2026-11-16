@@ -72,38 +72,42 @@
     ]
   },
   {
-    "id": "emily-carter",
-    "name": "Emily Carter",
-    "initials": "EC",
+    "id": "michael-carter",
+    "name": "Michael Carter",
+    "initials": "MC",
     "avatarBg": "#EA580C",
     "phone": "+1 415 555 0192",
     "ownerId": "carlos",
     "lastMessage": "Voice note (0:13)",
     "hasPending": true,
-    "summary": "Emily Carter is a client who receives Instagram content services from the business. In her only message, she asked whether this week's Instagram content is already scheduled and requested an extra post for a new product launch. The request is awaiting a response from the team.",
+    "summary": "Michael Carter is a client of the business who receives Instagram content services. In a single voice note, he asked whether this week's Instagram content is scheduled and requested an extra post for a new product launch. The conversation contains no reply from the business yet, so the request is still open.",
     "facts": [
       {
         "label": "SOLD",
-        "text": "Nothing stated as sold in this conversation."
+        "text": "Nothing stated about a specific sale; the conversation only mentions Instagram content being handled for him."
       },
       {
         "label": "AGREED",
-        "text": "Nothing has been agreed yet."
+        "text": "Nothing agreed yet; no reply from the business appears in the conversation."
       },
       {
         "label": "PENDING",
-        "text": "Emily asked to confirm that this week's Instagram content is scheduled and requested an extra post for the new product launch."
+        "text": "Michael wants confirmation that this week's Instagram content is already scheduled."
+      },
+      {
+        "label": "PENDING",
+        "text": "Michael asked for an extra Instagram post for the new product launch."
       },
       {
         "label": "DEADLINE",
-        "text": "The new product launch is coming out next Monday."
+        "text": "The new product launches next Monday."
       }
     ],
     "history": [
       {
         "time": "9:48 AM",
         "text": "Voice note transcript: Hi team, I wanted to confirm if this week's Instagram content is already scheduled, and also ask you to add an extra post for the new product launch, it's coming out next Monday.",
-        "from": "Emily Carter"
+        "from": "Michael Carter"
       }
     ]
   },
