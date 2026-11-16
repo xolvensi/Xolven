@@ -417,7 +417,29 @@ function renderSettings() {
   if (currentUser.role === 'admin') {
     document.getElementById('team-manage-card').hidden = false;
     loadUserList();
+    document.getElementById('whatsapp-card').hidden = false;
+    pollWhatsappStatus();
   }
+}
+
+let whatsappTimer = null;
+
+async function pollWhatsappStatus() {
+  clearTimeout(whatsappTimer);
+  const statusEl = document.getElementById('whatsapp-status');
+  const qrWrap = document.getElementById('whatsapp-qr-wrap');
+  if (document.getElementById('view-settings').hidden) return;
+
+  try {
+    const { status, qrImage, lastError } = await api('/api/whatsapp/status');
+    const labels = { connected: 'Connected', qr: 'Waiting for QR scan', connecting: 'Connecting…', error: 'Error', disabled: 'Disabled' };
+    statusEl.textContent = (labels[status] || status) + (lastError ? ' — ' + lastError : '');
+    qrWrap.hidden = !qrImage;
+    if (qrImage) document.getElementById('whatsapp-qr').src = qrImage;
+  } catch (err) {
+    statusEl.textContent = 'Unavailable';
+  }
+  whatsappTimer = setTimeout(pollWhatsappStatus, 4000);
 }
 
 async function loadUserList() {

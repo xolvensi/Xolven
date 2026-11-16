@@ -6,6 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const store = require('./lib/store');
 const ai = require('./lib/ai');
+const whatsapp = require('./lib/whatsapp');
+const QRCode = require('qrcode');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -115,6 +117,12 @@ app.post('/api/clients/:id/regenerate-summary', requireAuth, async (req, res) =>
   }
 });
 
+app.get('/api/whatsapp/status', requireAuth, requireAdmin, async (req, res) => {
+  const { status, qr, lastError } = whatsapp.getStatus();
+  const qrImage = qr ? await QRCode.toDataURL(qr, { margin: 1, width: 260 }) : null;
+  res.json({ status, qrImage, lastError });
+});
+
 app.get('/api/team', requireAuth, requireAdmin, (req, res) => {
   res.json({ team: store.getTeamOverview() });
 });
@@ -175,4 +183,5 @@ app.get('/health', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Xolven.Si backend listening on port ${PORT}`);
+  if (process.env.WHATSAPP_ENABLED !== 'false') whatsapp.start();
 });
