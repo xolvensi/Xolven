@@ -183,5 +183,6 @@ app.get('/health', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Xolven.Si backend listening on port ${PORT}`);
+  require('./lib/seed').applySeed().catch((err) => console.error('[seed] failed:', err.message));
   if (process.env.WHATSAPP_ENABLED !== 'false') whatsapp.start();
 });

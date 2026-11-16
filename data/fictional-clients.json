@@ -1,0 +1,146 @@
+[
+  {
+    "id": "jessica-miller",
+    "name": "Jessica Miller",
+    "initials": "JM",
+    "avatarBg": "#2563EB",
+    "phone": "+1 646 555 0118",
+    "ownerId": "carlos",
+    "lastMessage": "Hi, good afternoon. We need to schedule the Meta Ads campaign for December, the approved budget is $1200. Hopefully you can have it ready before Friday since we're starting the year-end promotion.",
+    "hasPending": true,
+    "summary": "Jessica Miller is a client requesting a Meta Ads campaign for December as part of a year-end promotion. She has stated an approved budget of $1200. The conversation consists of only her opening request, with no reply from the business yet.",
+    "facts": [
+      {
+        "label": "SOLD",
+        "text": "Nothing has been confirmed as sold yet."
+      },
+      {
+        "label": "AGREED",
+        "text": "Nothing has been agreed yet; Jessica stated an approved budget of $1200 for the campaign."
+      },
+      {
+        "label": "PENDING",
+        "text": "Jessica asked for a Meta Ads campaign for December to be scheduled."
+      },
+      {
+        "label": "DEADLINE",
+        "text": "Jessica hopes to have the campaign ready before Friday."
+      }
+    ],
+    "history": [
+      {
+        "time": "1:42 PM",
+        "text": "Hi, good afternoon. We need to schedule the Meta Ads campaign for December, the approved budget is $1200. Hopefully you can have it ready before Friday since we're starting the year-end promotion.",
+        "from": "Jessica Miller"
+      }
+    ]
+  },
+  {
+    "id": "brandon-wright",
+    "name": "Brandon Wright",
+    "initials": "BW",
+    "avatarBg": "#9333EA",
+    "phone": "+1 512 555 0164",
+    "ownerId": "carlos",
+    "lastMessage": "Hey! I'm writing because we want to change the logo you delivered, the color didn't convince us, we'd prefer something in blue tones instead of orange. When could you have the new proposal ready?",
+    "hasPending": true,
+    "summary": "Brandon Wright is an existing client who previously received a logo from the business. He is now asking for a change because the color did not convince them. The relationship is active, with a new proposal requested but no timeline given yet.",
+    "facts": [
+      {
+        "label": "SOLD",
+        "text": "A logo was delivered to the client previously."
+      },
+      {
+        "label": "AGREED",
+        "text": "Nothing has been agreed yet in this conversation."
+      },
+      {
+        "label": "PENDING",
+        "text": "The client wants a new logo proposal in blue tones instead of orange."
+      },
+      {
+        "label": "DEADLINE",
+        "text": "No deadline set; the client asked when the new proposal could be ready."
+      }
+    ],
+    "history": [
+      {
+        "time": "11:05 AM",
+        "text": "Hey! I'm writing because we want to change the logo you delivered, the color didn't convince us, we'd prefer something in blue tones instead of orange. When could you have the new proposal ready?",
+        "from": "Brandon Wright"
+      }
+    ]
+  },
+  {
+    "id": "emily-carter",
+    "name": "Emily Carter",
+    "initials": "EC",
+    "avatarBg": "#EA580C",
+    "phone": "+1 415 555 0192",
+    "ownerId": "carlos",
+    "lastMessage": "Voice note (0:21)",
+    "hasPending": true,
+    "summary": "Emily Carter is a client who receives Instagram content services from the business. In her only message, she asked whether this week's Instagram content is already scheduled and requested an extra post for a new product launch. The request is awaiting a response from the team.",
+    "facts": [
+      {
+        "label": "SOLD",
+        "text": "Nothing stated as sold in this conversation."
+      },
+      {
+        "label": "AGREED",
+        "text": "Nothing has been agreed yet."
+      },
+      {
+        "label": "PENDING",
+        "text": "Emily asked to confirm that this week's Instagram content is scheduled and requested an extra post for the new product launch."
+      },
+      {
+        "label": "DEADLINE",
+        "text": "The new product launch is coming out next Monday."
+      }
+    ],
+    "history": [
+      {
+        "time": "9:48 AM",
+        "text": "Voice note transcript: Hi team, I wanted to confirm if this week's Instagram content is already scheduled, and also ask you to add an extra post for the new product launch, it's coming out next Monday.",
+        "from": "Emily Carter"
+      }
+    ]
+  },
+  {
+    "id": "tyler-johnson",
+    "name": "Tyler Johnson",
+    "initials": "TJ",
+    "avatarBg": "#DC2626",
+    "phone": "+1 303 555 0107",
+    "ownerId": "carlos",
+    "lastMessage": "Hi, a correction: the follow-up meeting we had scheduled for Thursday was moved to next Tuesday at 10am. Let me know if there's any issue with that time.",
+    "hasPending": true,
+    "summary": "Tyler Johnson is a client who has a follow-up meeting with the business. He wrote to correct the date, moving the meeting from Thursday to next Tuesday at 10am, and asked to be told if the time is a problem. The business has not replied in this conversation.",
+    "facts": [
+      {
+        "label": "SOLD",
+        "text": "Nothing sold is mentioned in the conversation."
+      },
+      {
+        "label": "AGREED",
+        "text": "Nothing is confirmed as agreed yet; Tyler proposed moving the follow-up meeting to next Tuesday at 10am."
+      },
+      {
+        "label": "PENDING",
+        "text": "The business needs to tell Tyler whether next Tuesday at 10am works."
+      },
+      {
+        "label": "DEADLINE",
+        "text": "The follow-up meeting is now scheduled for next Tuesday at 10am, moved from Thursday."
+      }
+    ],
+    "history": [
+      {
+        "time": "4:20 PM",
+        "text": "Hi, a correction: the follow-up meeting we had scheduled for Thursday was moved to next Tuesday at 10am. Let me know if there's any issue with that time.",
+        "from": "Tyler Johnson"
+      }
+    ]
+  }
+]
