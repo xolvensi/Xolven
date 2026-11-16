@@ -773,6 +773,25 @@ async function init() {
   if (clients.length > 0) {
     selectClient(clients[0].id);
   }
+
+  setInterval(refreshClients, 8000);
+}
+
+async function refreshClients() {
+  if (document.hidden) return;
+  try {
+    const previousLast = clients.find((c) => c.id === selectedId)?.lastMessage;
+    const data = await api('/api/clients');
+    clients = data.clients;
+    renderClientList();
+    const current = clients.find((c) => c.id === selectedId);
+    if (current && current.lastMessage !== previousLast) {
+      const { client } = await api('/api/clients/' + selectedId);
+      renderProfile(client);
+    }
+  } catch (err) {
+    // transient network error: try again on the next tick
+  }
 }
 
 init().catch((err) => console.error(err));

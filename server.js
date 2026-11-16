@@ -85,7 +85,9 @@ app.get('/api/me', requireAuth, (req, res) => {
 
 app.get('/api/clients', requireAuth, (req, res) => {
   const user = store.findUserById(req.userId);
-  const clients = store.getClientsForUser(user).map((c) => ({
+  const clients = [...store.getClientsForUser(user)]
+    .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
+    .map((c) => ({
     id: c.id,
     name: c.name,
     initials: c.initials,
